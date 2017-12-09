@@ -13,12 +13,12 @@ public class WelcomeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcome);
 
-        Button nextButton = (Button) findViewById(R.id.buttonNext);
+        Button nextButton =  findViewById(R.id.buttonNext);
 
         nextButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent buttonIntent = new Intent(WelcomeActivity.this, WelcomeActivity.class);
+                Intent buttonIntent = new Intent(WelcomeActivity.this, MyActivity.class);
                 startActivity(buttonIntent);
             }
         });
