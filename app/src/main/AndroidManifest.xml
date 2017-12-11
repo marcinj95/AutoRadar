@@ -21,7 +21,16 @@
             </intent-filter>
         </activity>
         <activity android:name=".AutoActivity" />
-        <activity android:name=".AutoListActivity"></activity>
+        <activity android:name=".AutoListActivity" />
+        <activity
+            android:name=".MainActivity"
+            android:label="@string/title_activity_main"
+            android:parentActivityName=".WelcomeActivity"
+            android:theme="@style/AppTheme">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.marci.autoradar.WelcomeActivity" />
+        </activity>
     </application>
 
 </manifest>
