@@ -11,7 +11,7 @@ import android.widget.TextView;
 import entities.Auto;
 import models.AutoRestClient;
 
-public class MyActivity extends AppCompatActivity {
+public class AutoActivity extends AppCompatActivity {
 
     private Button buttonFind;
     private EditText editTextId;
@@ -19,7 +19,7 @@ public class MyActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_my);
+        setContentView(R.layout.activity_auto);
 
        // buttonFind = findViewById(R.id.buttonFind);
         buttonFind = findViewById(R.id.buttonFind);
