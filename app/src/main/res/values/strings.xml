@@ -4,7 +4,7 @@
     <string name="welcome_title1">AutoRadar</string>
     <string name="welcome_next">Dalej</string>
     <string name="welcome_text">Witaj w aplikacji AutoRadar, która w łatwy i szybki sposób pozwoli Ci kupić lub sprzedać auto!</string>
-    <string name="title_activity_main">MainActivity</string>
+    <string name="title_activity_main">AutoRadar</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
