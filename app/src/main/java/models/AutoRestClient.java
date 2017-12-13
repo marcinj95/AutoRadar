@@ -1,9 +1,5 @@
 package models;
 
-/**
- * Created by marci on 08.12.2017.
- */
-
 import android.util.Log;
 
 import org.springframework.http.HttpMethod;

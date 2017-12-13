@@ -19,7 +19,15 @@ public class Auto  {
     private int price;
     private int idEquipment;
     private int idPhoto;
-    private int user_idUser;
+    private User user;
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
 
     public Long getIdAuto() {
         return idAuto;
@@ -109,11 +117,5 @@ public class Auto  {
         this.idPhoto = idPhoto;
     }
 
-    public int getUser_idUser() {
-        return user_idUser;
-    }
 
-    public void setUser_idUser(int user_idUser) {
-        this.user_idUser = user_idUser;
-    }
 }
