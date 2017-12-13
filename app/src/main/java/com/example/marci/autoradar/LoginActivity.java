@@ -339,7 +339,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
             try {
                 // Simulate network access.
-                Thread.sleep(2000);
+                Thread.sleep(1);
             } catch (InterruptedException e) {
                 return false;
             }
@@ -379,7 +379,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
             if (success) {
                 Intent buttonIntent = new Intent(LoginActivity.this, MainActivity.class);
-
+                //buttonIntent.putExtra("Uzytkownik", );
                 startActivity(buttonIntent);
             } else {
                 mPasswordView.setError(getString(R.string.error_incorrect_password));
@@ -409,7 +409,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         @Override
         protected void onPostExecute(List<User> users) {
             listUser = users;
-           // Toast.makeText(LoginActivity.this, String.valueOf(listUser.size()), Toast.LENGTH_LONG).show();
+            Toast.makeText(LoginActivity.this, String.valueOf(listUser.size()), Toast.LENGTH_LONG).show();
 
         }
     }

@@ -14,6 +14,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.List;
@@ -38,6 +39,7 @@ public class MainActivity extends AppCompatActivity
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -56,6 +58,22 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        View header = navigationView.getHeaderView(0);
+
+        TextView nameView = header.findViewById(R.id.textViewUserName);
+        nameView.setText(mainUser.getName());
+
+        TextView emailView = header.findViewById(R.id.textViewUserEmail);
+        emailView.setText(mainUser.getEmail());
+
+//        TextView mTitle = toolbar.getT
+//
+//                toolbar.
+
+
+
+
 
 
         new MainActivity.HttpRequestAsk().execute();
@@ -101,17 +119,15 @@ public class MainActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
+        if (id == R.id.new_offer) {
             // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
+        } else if (id == R.id.get_all) {
 
-        } else if (id == R.id.nav_slideshow) {
+        } else if (id == R.id.search) {
 
-        } else if (id == R.id.nav_manage) {
+        } else if (id == R.id.settings) {
 
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
+        } else if (id == R.id.my_autos){
 
         }
 
