@@ -1,13 +1,15 @@
 package entities;
 
+import java.io.Serializable;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 /**
  * Created by marci on 12.12.2017.
  */
 
-public class User {
+public class User implements Serializable {
 
     public static User mUser;
     private Long idUser;
@@ -17,7 +19,15 @@ public class User {
     private String adress;
     private String password;
     private int tel;
-    private Set<Auto> autos = new HashSet<Auto>();
+    private List<Auto> autos;
+
+    public List<Auto> getAutos() {
+        return autos;
+    }
+
+    public void setAutos(List<Auto> autos) {
+        this.autos = autos;
+    }
 
     public Long getIdUser() {
         return idUser;
@@ -75,11 +85,11 @@ public class User {
         this.tel = tel;
     }
 
-    public Set<Auto> getAutos() {
-        return autos;
-    }
-
-    public void setAutos(Set<Auto> autos) {
-        this.autos = autos;
-    }
+//    public Set<Auto> getAutos() {
+//        return autos;
+//    }
+//
+//    public void setAutos(Set<Auto> autos) {
+//        this.autos = autos;
+//    }
 }

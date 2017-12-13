@@ -409,7 +409,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         @Override
         protected void onPostExecute(List<User> users) {
             listUser = users;
-            Toast.makeText(LoginActivity.this, String.valueOf(listUser.size()), Toast.LENGTH_LONG).show();
+            //Toast.makeText(LoginActivity.this, String.valueOf(listUser.get(0).getAutos().size()), Toast.LENGTH_LONG).show();
 
         }
     }

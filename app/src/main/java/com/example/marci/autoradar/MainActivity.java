@@ -35,7 +35,7 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
 
         mainUser = User.mUser;
-        Toast.makeText(MainActivity.this, mainUser.getCity(), Toast.LENGTH_LONG).show();
+        Toast.makeText(MainActivity.this, String.valueOf(mainUser.getAutos().size()), Toast.LENGTH_LONG).show();
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -143,6 +143,7 @@ public class MainActivity extends AppCompatActivity
         @Override
         protected List<Auto> doInBackground(Void... voids) {
             AutoRestClient autoRestClient = new AutoRestClient();
+           // Auto auto = autoRestClient.find(12L);
             return autoRestClient.finAll();
 
         }

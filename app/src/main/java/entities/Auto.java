@@ -1,12 +1,13 @@
 package entities;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
  * Created by marci on 08.12.2017.
  */
 
-public class Auto  {
+public class Auto  implements Serializable{
 
    private  Long idAuto;
     private String title;

@@ -13,6 +13,8 @@ import android.widget.Toast;
 
 import com.example.marci.autoradar.R;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import entities.Auto;
@@ -49,18 +51,35 @@ public class AutoListAdapter extends ArrayAdapter<Auto> {
         //Auto auto = autos.get(position);
 
 
-        TextView textViewId = convertView.findViewById(R.id.textViewIdList);
-        textViewId.setText(auto.getIdAuto().toString());
-       // Toast.makeText(getContext(),auto.getIdAuto().toString(), Toast.LENGTH_SHORT);
-        //Log.v("E:" + auto.getIdAuto().toString(), "DDDDDD");
-
-
-        TextView textViewModel = convertView.findViewById(R.id.textViewModelLIst);
-        textViewModel.setText(auto.getModel());
-        //Log.v("E:" + auto.getCarBrand(), "WWWW");
+//        TextView textViewId = convertView.findViewById(R.id.textViewIdList);
+//        textViewId.setText(auto.getIdAuto().toString());
+//       // Toast.makeText(getContext(),auto.getIdAuto().toString(), Toast.LENGTH_SHORT);
+//        //Log.v("E:" + auto.getIdAuto().toString(), "DDDDDD");
 //
-        TextView textViewCarBrand = convertView.findViewById(R.id.textViewCarBrandList);
-        textViewCarBrand.setText(auto.getCarBrand());
+//
+//        TextView textViewModel = convertView.findViewById(R.id.textViewModelLIst);
+//        textViewModel.setText(auto.getModel());
+//        //Log.v("E:" + auto.getCarBrand(), "WWWW");
+////
+//        TextView textViewCarBrand = convertView.findViewById(R.id.textViewCarBrandList);
+//        textViewCarBrand.setText(auto.getCarBrand());
+
+        TextView textViewDesc = convertView.findViewById(R.id.textViewDescriptionListLayout);
+        textViewDesc.setText(auto.getDescription());
+
+        TextView textViewCity = convertView.findViewById(R.id.textViewCityListLayout);
+
+        if(auto.getUser()!=null)
+        {
+            textViewCity.setText(auto.getUser().getCity());
+        }else {
+            textViewCity.setText("Brak");
+        }
+
+        String date = new SimpleDateFormat("dd-MM-yyyy").format(auto.getCreatedAt());
+
+        TextView textViewData = convertView.findViewById(R.id.textViewDataListLayout);
+        textViewData.setText(date);
 
         return convertView;
 
