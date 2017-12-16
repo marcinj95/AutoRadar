@@ -11,6 +11,8 @@ import java.util.Set;
 
 public class User implements Serializable {
 
+    public User(){}
+
     public static User mUser;
     private Long idUser;
     private String name;

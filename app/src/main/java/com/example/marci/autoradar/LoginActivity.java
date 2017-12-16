@@ -109,7 +109,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         buttonRegister.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                Intent registerIntent = new Intent(getApplicationContext(), RegisterActivity.class);
+                startActivity(registerIntent);
             }
         });
 

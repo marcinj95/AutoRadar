@@ -47,12 +47,21 @@
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
 
-        <activity android:name=".AutoDetailActivity"
+        <activity
+            android:name=".AutoDetailActivity"
             android:parentActivityName=".MainActivity"
             android:theme="@style/AppTheme">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.marci.autoradar.MainActivity"/>
+                android:value="com.example.marci.autoradar.MainActivity" />
+        </activity>
+        <activity android:name=".RegisterActivity"
+            android:parentActivityName=".LoginActivity"
+            android:theme="@style/AppTheme">>
+
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.marci.autoradar.LoginActivity" />
         </activity>
     </application>
 
