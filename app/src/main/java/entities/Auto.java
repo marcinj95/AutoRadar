@@ -20,6 +20,11 @@ public class Auto  implements Serializable{
     private int price;
     private int idEquipment;
     private int idPhoto;
+    ////
+    private byte[] image;
+
+
+    ///
     private User user;
 
     public User getUser() {
@@ -117,6 +122,15 @@ public class Auto  implements Serializable{
     public void setIdPhoto(int idPhoto) {
         this.idPhoto = idPhoto;
     }
+
+    public byte[] getImage() {
+        return image;
+    }
+
+    public void setImage(byte[] image) {
+        this.image = image;
+    }
+
 
 
 }

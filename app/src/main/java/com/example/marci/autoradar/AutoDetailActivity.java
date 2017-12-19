@@ -1,9 +1,14 @@
 package com.example.marci.autoradar;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.media.Image;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
 
@@ -37,9 +42,30 @@ public class AutoDetailActivity extends AppCompatActivity {
         String date = new SimpleDateFormat("dd-MM-yyyy").format(auto.getCreatedAt());
 
         TextView dataCity = findViewById(R.id.textViewCityDateDetail);
-        dataCity.setText(auto.getUser().getCity() + " " + date);
+        if(auto.getUser()!=null){
+            dataCity.setText(auto.getUser().getCity() + " " + date);
+        }else{
+            dataCity.setText("Brak");
+        }
+
 
         TextView tel = findViewById(R.id.textViewTelDetail);
-        tel.setText("Tel: " + auto.getUser().getTel());
+        if(auto.getUser()!=null){
+            tel.setText("Tel: " + auto.getUser().getTel());
+        }else{
+            tel.setText("Brak");
+        }
+
+
+        if(auto.getImage()!=null){
+            ImageView image = findViewById(R.id.imageViewAutoDetail);
+            Bitmap bitmap = BitmapFactory.decodeByteArray(auto.getImage(), 0, auto.getImage().length);
+            image.setImageBitmap(bitmap);
+        }
+
+
+
+
+
     }
 }

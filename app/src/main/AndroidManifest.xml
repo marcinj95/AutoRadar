@@ -55,13 +55,23 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.marci.autoradar.MainActivity" />
         </activity>
-        <activity android:name=".RegisterActivity"
+        <activity
+            android:name=".RegisterActivity"
             android:parentActivityName=".LoginActivity"
-            android:theme="@style/AppTheme">>
-
+            android:theme="@style/AppTheme">
+            >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.marci.autoradar.LoginActivity" />
+        </activity>
+        <activity
+            android:name=".NewAutoActivity"
+            android:label="@string/title_activity_new_auto"
+            android:parentActivityName=".MainActivity"
+            android:theme="@style/AppTheme">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.marci.autoradar.MainActivity" />
         </activity>
     </application>
 
