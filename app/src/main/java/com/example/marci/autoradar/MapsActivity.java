@@ -363,7 +363,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         Geocoder geoCoder = new Geocoder(this, Locale.getDefault());
         List<Address> addresses ;
+
         if(auto.getAdres()!=null && auto.getAdres()!=""){
+           // Toast.makeText(this, auto.getModel(), Toast.LENGTH_SHORT).show();
             try {
                 addresses = geoCoder.getFromLocationName(auto.getAdres(), 1);
                 if(!addresses.isEmpty()){

@@ -42,7 +42,7 @@
         android:id="@+id/scrollView2"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginBottom="45dp"
+        android:layout_marginBottom="65dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -66,8 +66,7 @@
     <TextView
         android:id="@+id/textViewPriceDetail"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
+        android:layout_height="19dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
@@ -83,8 +82,7 @@
     <TextView
         android:id="@+id/textViewCityDateDetail"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
+        android:layout_height="19dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
@@ -98,11 +96,11 @@
     <TextView
         android:id="@+id/textViewTelDetail"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
+        android:layout_height="19dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
+        android:autoLink="phone"
         android:textAppearance="@style/TextAppearance.Compat.Notification.Title.Media"
         android:textColor="@android:color/black"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -110,7 +108,23 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/textViewCityDateDetail"
         app:layout_constraintTop_toBottomOf="@+id/scrollView2"
-        tools:text="Tel: 790-212-350"
-        android:autoLink="phone"/>
+        tools:text="Tel: 790-212-350" />
+
+    <TextView
+        android:id="@+id/textViewGoToMapDetail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="4dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:text="@string/showOnMap"
+        android:textColor="@color/colorMainOrange"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/textViewCityDateDetail"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/scrollView2" />
 
 </android.support.constraint.ConstraintLayout>

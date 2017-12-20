@@ -6,6 +6,7 @@ import android.graphics.BitmapFactory;
 import android.media.Image;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -29,6 +30,18 @@ public class AutoDetailActivity extends AppCompatActivity {
 
         Intent i = getIntent();
         auto = (Auto)i.getSerializableExtra("AutoS");
+
+        TextView toMap = findViewById(R.id.textViewGoToMapDetail);
+        toMap.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(AutoDetailActivity.this, MapsActivity.class);
+                intent.putExtra("AutoS", auto);
+
+
+                startActivity((intent));
+            }
+        });
 
         TextView title = findViewById(R.id.textViewTitleAutoDetail);
         title.setText(auto.getTitle());
@@ -63,6 +76,7 @@ public class AutoDetailActivity extends AppCompatActivity {
             image.setImageBitmap(bitmap);
         }
 
+        Toast.makeText(this, String.valueOf(auto.getIdAuto()), Toast.LENGTH_LONG).show();
 
 
 

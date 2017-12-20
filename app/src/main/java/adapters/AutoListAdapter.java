@@ -68,7 +68,7 @@ public class AutoListAdapter extends ArrayAdapter<Auto> {
 //        textViewCarBrand.setText(auto.getCarBrand());
 
         TextView textViewDesc = convertView.findViewById(R.id.textViewTitleListLayout);
-        textViewDesc.setText(auto.getTitle());
+        textViewDesc.setText(auto.getTitle() + String.valueOf(auto.getIdAuto()));
 
         TextView textViewCity = convertView.findViewById(R.id.textViewCityListLayout);
 
@@ -84,10 +84,14 @@ public class AutoListAdapter extends ArrayAdapter<Auto> {
         TextView textViewData = convertView.findViewById(R.id.textViewDataListLayout);
         textViewData.setText(date);
 
+
+        ImageView image = convertView.findViewById(R.id.imageViewListLayout);
         if(auto.getImage()!=null){
-            ImageView image = convertView.findViewById(R.id.imageViewListLayout);
+
             Bitmap bitmap = BitmapFactory.decodeByteArray(auto.getImage(), 0, auto.getImage().length);
             image.setImageBitmap(bitmap);
+        }else {
+            image.setImageResource(R.drawable.photo_camera);
         }
 
 

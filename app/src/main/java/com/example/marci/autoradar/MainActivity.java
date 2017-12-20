@@ -36,7 +36,7 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
 
         mainUser = User.mUser;
-        Toast.makeText(MainActivity.this, String.valueOf(mainUser.getAutos().size()), Toast.LENGTH_LONG).show();
+        //Toast.makeText(MainActivity.this, String.valueOf(mainUser.getAutos().size()), Toast.LENGTH_LONG).show();
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
