@@ -1,5 +1,6 @@
 package com.example.marci.autoradar;
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -122,6 +123,8 @@ public class MainActivity extends AppCompatActivity
         if (id == R.id.new_offer) {
             // Handle the camera action
         } else if (id == R.id.get_all) {
+            Intent intent = new Intent(MainActivity.this, MapsActivity.class);
+            startActivity(intent);
 
         } else if (id == R.id.search) {
 
@@ -131,6 +134,8 @@ public class MainActivity extends AppCompatActivity
 
         }
 
+       // item.setEnabled(false);
+        item.setChecked(false);
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;

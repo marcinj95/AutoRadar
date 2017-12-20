@@ -22,10 +22,20 @@ public class Auto  implements Serializable{
     private int idPhoto;
     ////
     private byte[] image;
+    private String adres;
 
 
     ///
     private User user;
+
+
+    public String getAdres() {
+        return adres;
+    }
+
+    public void setAdres(String adres) {
+        this.adres = adres;
+    }
 
     public User getUser() {
         return user;

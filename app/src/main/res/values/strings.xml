@@ -41,6 +41,7 @@
         completions."
     </string>
     <string name="title_activity_new_auto">NewAutoActivity</string>
+    <string name="title_activity_maps">Map</string>
 
 
 </resources>
