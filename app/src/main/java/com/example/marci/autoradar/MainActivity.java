@@ -1,5 +1,6 @@
 package com.example.marci.autoradar;
 
+import android.content.ClipData;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -29,6 +30,7 @@ public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
    private User mainUser;
+   private boolean ifUserAutos = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -132,6 +134,19 @@ public class MainActivity extends AppCompatActivity
 
         } else if (id == R.id.my_autos){
 
+            if (ifUserAutos == false){
+                new MainActivity.HttpRequestAskUserAutos().execute();
+                ifUserAutos = true;
+                item.setTitle("Wróć");
+            }else{
+                new MainActivity.HttpRequestAsk().execute();
+                ifUserAutos = false;
+                item.setTitle("Moje oferty");
+            }
+
+
+
+
         }
 
        // item.setEnabled(false);
@@ -150,6 +165,24 @@ public class MainActivity extends AppCompatActivity
             AutoRestClient autoRestClient = new AutoRestClient();
            // Auto auto = autoRestClient.find(12L);
             return autoRestClient.finAll();
+
+        }
+
+        @Override
+        protected void onPostExecute(List<Auto> autos) {
+            ListView listViewAuto = findViewById(R.id.listViewAutoContentMain);
+            listViewAuto.setAdapter(new AutoListAdapter(MainActivity.this, autos));
+
+        }
+    }
+
+    private class HttpRequestAskUserAutos extends AsyncTask<Void, Void, List<Auto>> {
+
+        @Override
+        protected List<Auto> doInBackground(Void... voids) {
+            AutoRestClient autoRestClient = new AutoRestClient();
+            // Auto auto = autoRestClient.find(12L);
+            return autoRestClient.findAllByUser(mainUser);
 
         }
 

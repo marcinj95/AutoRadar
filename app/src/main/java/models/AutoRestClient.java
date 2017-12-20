@@ -81,6 +81,31 @@ public class AutoRestClient {
 
     }
 
+    public List<Auto> findAllByUser(User user2){
+
+        ResponseEntity<List<Auto>> rateResponse =
+                restTemplate.exchange(BASE_URL + "autolistuser/" + user2.getIdUser(),
+                        HttpMethod.GET, null, new ParameterizedTypeReference<List<Auto>>() {
+                        });
+        List<Auto> rates = rateResponse.getBody();
+
+        Long i;
+        String url="http://192.168.2.14:8080/api/autos/user/";
+        for(Auto rate : rates)
+        {
+            i=rate.getIdAuto();
+            User user =  restTemplate.getForObject(url + i, User.class);
+            if(user != null)
+            {
+                rate.setUser(user);
+            }
+
+        }
+
+        return rates;
+
+    }
+
 
 
 
