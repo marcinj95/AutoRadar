@@ -103,6 +103,7 @@ public class AutoListAdapter extends ArrayAdapter<Auto> {
             @Override
             public void onClick(View view) {
 
+                //auto.setImage(null);
                 Intent intent = new Intent(context, AutoDetailActivity.class);
                 intent.putExtra("AutoS", auto);
 

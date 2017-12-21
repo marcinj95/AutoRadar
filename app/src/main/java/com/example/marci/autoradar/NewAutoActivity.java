@@ -301,7 +301,7 @@ public class NewAutoActivity extends AppCompatActivity implements AdapterView.On
             Bitmap src= BitmapFactory.decodeFile(file.getEncodedPath());
 
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
-            src.compress(Bitmap.CompressFormat.JPEG, 30, baos);
+            src.compress(Bitmap.CompressFormat.WEBP, 0, baos);
             image = baos.toByteArray();
 
             return null;

@@ -150,11 +150,13 @@ public class MainActivity extends AppCompatActivity
 
         } else if (id == R.id.search) {
 
-            Intent intent = new Intent(this, AutoDetailActivity.class);
-            intent.putExtra("AutoS", listaAut.get(11));
-
-
-            startActivity((intent));
+//            Intent intent = new Intent(this, AutoDetailActivity.class);
+//            Auto auto = listaAut.get(11);
+//            auto.setImage(null);
+//            intent.putExtra("AutoS", auto);
+//
+//
+//            startActivity((intent));
 
         } else if (id == R.id.settings) {
 

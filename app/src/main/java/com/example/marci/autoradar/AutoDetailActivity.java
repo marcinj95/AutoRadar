@@ -30,6 +30,7 @@ public class AutoDetailActivity extends AppCompatActivity {
 
         Intent i = getIntent();
         auto = (Auto)i.getSerializableExtra("AutoS");
+        //auto.setImage(null);
 
         TextView toMap = findViewById(R.id.textViewGoToMapDetail);
         toMap.setOnClickListener(new View.OnClickListener() {
