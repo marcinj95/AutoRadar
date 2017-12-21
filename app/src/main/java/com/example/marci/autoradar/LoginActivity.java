@@ -32,6 +32,10 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -51,6 +55,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     public List<String> listUser;
     private User mainUser;
     private Long goodEmail;
+    private AdView mAdView;
     /**
      * Id to identity READ_CONTACTS permission request.
      */
@@ -78,6 +83,16 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+        // Sample AdMob app ID: ca-app-pub-3940256099942544~3347511713
+        //MobileAds.initialize(this, "ca-app-pub-3940256099942544~3347511713");
+
+        mAdView = findViewById(R.id.adView2);
+        AdRequest adRequest = new AdRequest.Builder().build();
+
+        //AdRequest.Builder.addTestDevice("E9D3F269C53676DDA1836BDDC5B7D4B5");
+
+        mAdView.loadAd(adRequest);
 
         new LoginActivity.HttpRequestAsk().execute();
 

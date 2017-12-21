@@ -162,6 +162,7 @@ public class NewAutoActivity extends AppCompatActivity implements AdapterView.On
 
 
 
+
             //Toast.makeText(NewAutoActivity.this, file.getEncodedPath(), Toast.LENGTH_LONG).show();
             }
         });
@@ -208,8 +209,14 @@ public class NewAutoActivity extends AppCompatActivity implements AdapterView.On
                 imageView.getLayoutParams().width = LinearLayout.LayoutParams.WRAP_CONTENT;
                 imageView.requestLayout();
 
+                Bitmap src= BitmapFactory.decodeFile(file.getEncodedPath());
 
-                new MyTask().execute();
+                Bitmap bitmap1 = Bitmap.createScaledBitmap(src,586,271,false );
+
+                ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                bitmap1.compress(Bitmap.CompressFormat.WEBP, 60, baos);
+                image = baos.toByteArray();
+               // new MyTask().execute();
 
 
 //                Bitmap bitmap = BitmapFactory.decodeByteArray(image , 0, image.length);
@@ -293,15 +300,17 @@ public class NewAutoActivity extends AppCompatActivity implements AdapterView.On
         protected void onProgressUpdate(Integer... values) {
             super.onProgressUpdate(values);
             //progressStatus += 10;
-            progressBar.setProgress(values[0]);
+            //progressBar.setProgress(values[0]);
         }
 
         @Override
         protected Void doInBackground(Void... voids) {
             Bitmap src= BitmapFactory.decodeFile(file.getEncodedPath());
 
+            Bitmap bitmap1 = Bitmap.createScaledBitmap(src,586,271,false );
+
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
-            src.compress(Bitmap.CompressFormat.WEBP, 0, baos);
+            bitmap1.compress(Bitmap.CompressFormat.WEBP, 60, baos);
             image = baos.toByteArray();
 
             return null;

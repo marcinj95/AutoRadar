@@ -38,23 +38,6 @@ public class AutoRestClient {
 
     public List<Auto> finAll(){
 
-//        try {
-//                return restTemplate.exchange(BASE_URL,
-//                        HttpMethod.GET,
-//                        null,
-//                        new ParameterizedTypeReference<List<Auto>>(){}).getBody();
-//        } catch (Exception e) {
-//            return null;
-//        }
-
-//        ResponseEntity<Auto[]> responseEntity = restTemplate.getForEntity(BASE_URL, Auto[].class);
-//
-//        Auto[] objects = responseEntity.getBody();
-//
-//        MediaType contentType = responseEntity.getHeaders().getContentType();
-//        HttpStatus statusCode = responseEntity.getStatusCode();
-//
-//        return responseEntity;
 
         ResponseEntity<List<Auto>> rateResponse =
                 restTemplate.exchange(BASE_URL,
@@ -74,6 +57,34 @@ public class AutoRestClient {
             }
 
         }
+
+        return rates;
+
+
+
+    }
+
+    public List<Auto> finAllNoUser(){
+
+
+        ResponseEntity<List<Auto>> rateResponse =
+                restTemplate.exchange(BASE_URL,
+                        HttpMethod.GET, null, new ParameterizedTypeReference<List<Auto>>() {
+                        });
+        List<Auto> rates = rateResponse.getBody();
+
+//        Long i;
+//        String url="http://192.168.2.14:8080/api/autos/user/";
+//        for(Auto rate : rates)
+//        {
+//            i=rate.getIdAuto();
+//            User user =  restTemplate.getForObject(url + i, User.class);
+//            if(user != null)
+//            {
+//                rate.setUser(user);
+//            }
+//
+//        }
 
         return rates;
 

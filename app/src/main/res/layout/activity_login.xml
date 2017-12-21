@@ -22,7 +22,7 @@
     <ScrollView
         android:id="@+id/login_form"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
 
         <LinearLayout
             android:id="@+id/email_login_form"
@@ -42,7 +42,7 @@
                     android:inputType="textEmailAddress"
                     android:maxLines="1"
                     android:singleLine="true"
-                    android:text="lol@lol.pl" />
+                    android:text="maciek@maciek.pl" />
 
             </android.support.design.widget.TextInputLayout>
 
@@ -84,4 +84,12 @@
 
         </LinearLayout>
     </ScrollView>
+
+    <com.google.android.gms.ads.AdView xmlns:ads="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/adView2"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+
+        ads:adSize="BANNER"
+        ads:adUnitId="ca-app-pub-3940256099942544/6300978111" />
 </LinearLayout>

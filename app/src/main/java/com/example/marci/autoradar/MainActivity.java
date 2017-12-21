@@ -19,6 +19,10 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
+
 import java.util.List;
 
 import adapters.AutoListAdapter;
@@ -32,14 +36,24 @@ public class MainActivity extends AppCompatActivity
    private User mainUser;
    private boolean ifUserAutos = false;
    private MenuItem mMenu;
+    private AdView mAdView;
 
    //
     List<Auto> listaAut;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        mAdView = findViewById(R.id.adView4);
+        AdRequest adRequest = new AdRequest.Builder().build();
+
+        //AdRequest.Builder.addTestDevice("E9D3F269C53676DDA1836BDDC5B7D4B5");
+
+        mAdView.loadAd(adRequest);
+
 
         mainUser = User.mUser;
         //Toast.makeText(MainActivity.this, String.valueOf(mainUser.getAutos().size()), Toast.LENGTH_LONG).show();
@@ -143,7 +157,9 @@ public class MainActivity extends AppCompatActivity
         mMenu = item;
 
         if (id == R.id.new_offer) {
-            // Handle the camera action
+            Intent intent = new Intent(MainActivity.this, NewAutoActivity.class);
+            intent.putExtra("UserS",mainUser );
+            startActivity(intent);
         } else if (id == R.id.get_all) {
             Intent intent = new Intent(MainActivity.this, MapsActivity.class);
             startActivity(intent);
@@ -194,13 +210,13 @@ public class MainActivity extends AppCompatActivity
         protected List<Auto> doInBackground(Void... voids) {
             AutoRestClient autoRestClient = new AutoRestClient();
            // Auto auto = autoRestClient.find(12L);
-            return autoRestClient.finAll();
+            return autoRestClient.finAllNoUser();
 
         }
 
         @Override
         protected void onPostExecute(List<Auto> autos) {
-            listaAut = autos;
+            //listaAut = autos;
             ListView listViewAuto = findViewById(R.id.listViewAutoContentMain);
             listViewAuto.setAdapter(new AutoListAdapter(MainActivity.this, autos));
 

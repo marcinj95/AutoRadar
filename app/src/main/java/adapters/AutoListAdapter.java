@@ -15,7 +15,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.marci.autoradar.AutoDetailActivity;
+import com.example.marci.autoradar.MainActivity;
 import com.example.marci.autoradar.R;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
 
 import java.text.SimpleDateFormat;
 import java.util.List;
@@ -30,6 +34,7 @@ public class AutoListAdapter extends ArrayAdapter<Auto> {
 
     private Context context;
    // private List<Auto> autos;
+
 
     public AutoListAdapter(Context context, List<Auto> autos)
     {
@@ -54,6 +59,11 @@ public class AutoListAdapter extends ArrayAdapter<Auto> {
         //Auto auto = autos.get(position);
 
 
+
+
+
+
+
 //        TextView textViewId = convertView.findViewById(R.id.textViewIdList);
 //        textViewId.setText(auto.getIdAuto().toString());
 //       // Toast.makeText(getContext(),auto.getIdAuto().toString(), Toast.LENGTH_SHORT);
@@ -72,12 +82,12 @@ public class AutoListAdapter extends ArrayAdapter<Auto> {
 
         TextView textViewCity = convertView.findViewById(R.id.textViewCityListLayout);
 
-        if(auto.getUser()!=null)
-        {
-            textViewCity.setText(auto.getUser().getCity());
-        }else {
-            textViewCity.setText("Brak");
-        }
+//        if(auto.getUser()!=null)
+//        {
+//            textViewCity.setText(auto.getUser().getCity());
+//        }else {
+//            textViewCity.setText("Brak");
+//        }
 
         String date = new SimpleDateFormat("dd-MM-yyyy").format(auto.getCreatedAt());
 
@@ -85,13 +95,19 @@ public class AutoListAdapter extends ArrayAdapter<Auto> {
         textViewData.setText(date);
 
 
-        ImageView image = convertView.findViewById(R.id.imageViewListLayout);
+        ImageView imageView = convertView.findViewById(R.id.imageViewListLayout);
         if(auto.getImage()!=null){
 
+           // imageView.measure(View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED), View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED));
+
             Bitmap bitmap = BitmapFactory.decodeByteArray(auto.getImage(), 0, auto.getImage().length);
-            image.setImageBitmap(bitmap);
+           // Bitmap bitmap1 = Bitmap.createScaledBitmap(bitmap,imageView.getMeasuredWidth(),imageView.getMeasuredHeight(),false );
+
+            imageView.setImageBitmap(bitmap);
+
+
         }else {
-            image.setImageResource(R.drawable.photo_camera);
+            imageView.setImageResource(R.drawable.photo_camera);
         }
 
 
