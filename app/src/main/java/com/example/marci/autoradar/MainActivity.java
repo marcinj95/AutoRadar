@@ -33,6 +33,9 @@ public class MainActivity extends AppCompatActivity
    private boolean ifUserAutos = false;
    private MenuItem mMenu;
 
+   //
+    List<Auto> listaAut;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -70,10 +73,10 @@ public class MainActivity extends AppCompatActivity
         View header = navigationView.getHeaderView(0);
 
         TextView nameView = header.findViewById(R.id.textViewUserName);
-        nameView.setText(mainUser.getName());
+        //nameView.setText(mainUser.getName());
 
         TextView emailView = header.findViewById(R.id.textViewUserEmail);
-        emailView.setText(mainUser.getEmail());
+       // emailView.setText(mainUser.getEmail());
 
 //        TextView mTitle = toolbar.getT
 //
@@ -147,6 +150,12 @@ public class MainActivity extends AppCompatActivity
 
         } else if (id == R.id.search) {
 
+            Intent intent = new Intent(this, AutoDetailActivity.class);
+            intent.putExtra("AutoS", listaAut.get(11));
+
+
+            startActivity((intent));
+
         } else if (id == R.id.settings) {
 
         } else if (id == R.id.my_autos){
@@ -189,6 +198,7 @@ public class MainActivity extends AppCompatActivity
 
         @Override
         protected void onPostExecute(List<Auto> autos) {
+            listaAut = autos;
             ListView listViewAuto = findViewById(R.id.listViewAutoContentMain);
             listViewAuto.setAdapter(new AutoListAdapter(MainActivity.this, autos));
 

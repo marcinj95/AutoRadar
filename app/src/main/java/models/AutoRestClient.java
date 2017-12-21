@@ -106,6 +106,13 @@ public class AutoRestClient {
 
     }
 
+    public void postAuto(Auto auto){
+
+        restTemplate.postForEntity(BASE_URL, auto, Auto.class);
+
+
+    }
+
 
 
 

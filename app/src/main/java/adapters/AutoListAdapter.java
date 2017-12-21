@@ -29,13 +29,13 @@ import entities.Auto;
 public class AutoListAdapter extends ArrayAdapter<Auto> {
 
     private Context context;
-    private List<Auto> autos;
+   // private List<Auto> autos;
 
     public AutoListAdapter(Context context, List<Auto> autos)
     {
         super(context, R.layout.auto_list_layout, autos);
         this.context = context;
-        this.autos = autos;
+       // this.autos = autos;
 
     }
 

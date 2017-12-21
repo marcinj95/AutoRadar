@@ -76,7 +76,7 @@ public class AutoDetailActivity extends AppCompatActivity {
             image.setImageBitmap(bitmap);
         }
 
-        Toast.makeText(this, String.valueOf(auto.getIdAuto()), Toast.LENGTH_LONG).show();
+        //Toast.makeText(this, String.valueOf(auto.getIdAuto()), Toast.LENGTH_LONG).show();
 
 
 

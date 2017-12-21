@@ -38,17 +38,18 @@ import java.util.List;
 
 import entities.Auto;
 import entities.User;
+import models.AutoRestClient;
 
 public class NewAutoActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
     private String carModel;
     private String carBrand;
-    private String description;
-    private  int productionYear;
-    private int price;
+//    private String description;
+//    private  int productionYear;
+//    private int price;
     private String title;
     //private int telNumber;
-    private String adress;
+//    private String adress;
     private byte[] image;
 
 
@@ -60,7 +61,6 @@ public class NewAutoActivity extends AppCompatActivity implements AdapterView.On
     Spinner spinnerCarModel;
     ImageView imageView;
     ProgressBar progressBar;
-    private int progressStatus = 0;
 
 
 
@@ -131,6 +131,9 @@ public class NewAutoActivity extends AppCompatActivity implements AdapterView.On
                     auto.setModel(carModel);
                     auto.setAdres(adres.getText().toString());
                     auto.setUser(mUser);
+                    auto.setImage(image);
+
+                    new AddAutoAsync().execute(auto);
                 }else {
                     Toast.makeText(NewAutoActivity.this, "Coś poszło nie tak !", Toast.LENGTH_SHORT).show();
                 }
@@ -280,10 +283,10 @@ public class NewAutoActivity extends AppCompatActivity implements AdapterView.On
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
             progressBar.setVisibility(View.GONE);
-            boolean czy = false;
-            if(image!=null) czy = true;
+//            boolean czy = false;
+//            if(image!=null) czy = true;
 
-          //  Toast.makeText(NewAutoActivity.this, image.toString(), Toast.LENGTH_LONG).show();
+            //Toast.makeText(NewAutoActivity.this, String.valueOf(image.length), Toast.LENGTH_LONG).show();
         }
 
         @Override
@@ -298,13 +301,52 @@ public class NewAutoActivity extends AppCompatActivity implements AdapterView.On
             Bitmap src= BitmapFactory.decodeFile(file.getEncodedPath());
 
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
-            src.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+            src.compress(Bitmap.CompressFormat.JPEG, 30, baos);
             image = baos.toByteArray();
 
             return null;
         }
     }
 
+    private class AddAutoAsync extends  AsyncTask<Auto, Integer, Void>{
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            progressBar.setVisibility(View.VISIBLE);
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+
+            progressBar.setVisibility(View.GONE);
+            Toast.makeText(NewAutoActivity.this, "Dodałeś nowe auto !", Toast.LENGTH_LONG).show();
+            finish();
+
+        }
+
+        @Override
+        protected void onProgressUpdate(Integer... values) {
+            progressBar.setProgress(values[0]);
+        }
+
+        @Override
+        protected Void doInBackground(Auto... autos) {
+
+           // Auto auto = autos[0];
+
+            AutoRestClient autoRestClient = new AutoRestClient();
+            if(autos[0]!=null && image!=null){
+                autoRestClient.postAuto(autos[0]);
+            }else {
+                Toast.makeText(NewAutoActivity.this, "Nie dodałeś zdjęcia !", Toast.LENGTH_SHORT).show();
+            }
+
+
+
+            return null;
+        }
+    }
 
 
     public void getModel(int auto){
