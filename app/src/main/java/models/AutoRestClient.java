@@ -21,7 +21,7 @@ public class AutoRestClient {
 
     public Auto find(Long id){
         try {
-           // Log.v("asd", "HUUUI");
+
                 Auto auto =  restTemplate.getForObject(BASE_URL + id, Auto.class);
 //                Log.v("ID", String.valueOf(auto.getIdAuto()));
 //            Log.v("MODEL", String.valueOf(auto.getModel()));

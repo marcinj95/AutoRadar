@@ -68,7 +68,7 @@ public class AutoListAdapter extends ArrayAdapter<Auto> {
 //        textViewCarBrand.setText(auto.getCarBrand());
 
         TextView textViewDesc = convertView.findViewById(R.id.textViewTitleListLayout);
-        textViewDesc.setText(auto.getTitle() + String.valueOf(auto.getIdAuto()));
+        textViewDesc.setText(auto.getTitle());
 
         TextView textViewCity = convertView.findViewById(R.id.textViewCityListLayout);
 

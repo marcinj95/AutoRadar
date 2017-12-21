@@ -45,5 +45,64 @@
 
     <string name="showOnMap">&gt;&gt; POKAŻ NA MAPIE &lt;&lt;</string>
 
+    <!--For new Auto-->
+
+        <string-array name="carBrand_array">
+            <item>Opel</item>
+            <item>Ford</item>
+            <item>Renault</item>
+            <item>Fiat</item>
+            <item>Citroen</item>
+            <item>Dodge</item>
+            <item>Honda</item>
+            <item>Toyota</item>
+            <item>Kia</item>
+            <item>Volkswagen</item>
+            <item>Audi</item>
+            <item>Mercedes</item>
+            <item>Porshe</item>
+            <item>Jeep</item>
+            <item>Alfa Romeo</item>
+            <item>Skoda</item>
+        </string-array>
+
+
+
+
+
+
+
+    <string-array name="array01">
+        <item>Astra</item>
+        <item>Vectra</item>
+        <item>Zafira</item>
+
+    </string-array>
+    <string-array name="array02">
+        <item>Fiesta</item>
+        <item>Focus</item>
+        <item>Mustang</item>
+    </string-array>
+    <string-array name="array03">
+        <item>Clio</item>
+        <item>Megane</item>
+        <item>Modus</item>
+    </string-array>
+    <string-array name="array04">
+        <item>Panda</item>
+        <item>Tipo</item>
+        <item>Punto</item>
+    </string-array>
+    <!-- etc. -->
+
+    <array name="Marki">
+        <item name="Opel">@array/array01</item>
+        <item name="Ford">@array/array02</item>
+        <item name="Renault">@array/array03</item>
+        <item name="Fiat">@array/array04</item>
+    </array>
+
+
+
 
 </resources>

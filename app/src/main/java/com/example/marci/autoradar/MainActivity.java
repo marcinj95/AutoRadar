@@ -31,6 +31,7 @@ public class MainActivity extends AppCompatActivity
 
    private User mainUser;
    private boolean ifUserAutos = false;
+   private MenuItem mMenu;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,8 +49,12 @@ public class MainActivity extends AppCompatActivity
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+//                        .setAction("Action", null).show();
+                Intent intent = new Intent(MainActivity.this, NewAutoActivity.class);
+                intent.putExtra("UserS",mainUser );
+                startActivity(intent);
+
             }
         });
 
@@ -90,7 +95,17 @@ public class MainActivity extends AppCompatActivity
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
-            super.onBackPressed();
+
+            if(ifUserAutos){
+                ifUserAutos = false;
+
+                mMenu.setTitle("Moje oferty");
+                new MainActivity.HttpRequestAsk().execute();
+
+            }else{
+                super.onBackPressed();
+            }
+
         }
     }
 
@@ -98,6 +113,7 @@ public class MainActivity extends AppCompatActivity
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
+       // mMenu = menu;
         return true;
     }
 
@@ -121,6 +137,7 @@ public class MainActivity extends AppCompatActivity
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
+        mMenu = item;
 
         if (id == R.id.new_offer) {
             // Handle the camera action
@@ -148,6 +165,8 @@ public class MainActivity extends AppCompatActivity
 
 
         }
+
+
 
        // item.setEnabled(false);
         item.setChecked(false);
