@@ -60,37 +60,42 @@ public class UserRestClient {
 
     public void postUser(User user){
 
-//        HttpEntity<User> request = new HttpEntity<>(user);
-//        //restTemplate.postForObject(BASE_URL, request,User.class);
-//
+
         restTemplate.postForEntity(BASE_URL, user, User.class);
 
-//        Map<String, String> vars = new HashMap<String, String>();
-//        vars.put("id", "JS01");
-//
-//        try
-//        {
-//            /*
-//                This is code to post and return a user object
-//             */
-//
-//            restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
-//            restTemplate.getMessageConverters().add(new StringHttpMessageConverter());
-//            //String uri = new String("http://" + mRESTServer.getHost() + ":8080/springmvc-resttemplate-test/api/{id}");
-//            User u = new User();
-//            //u.setName("Johnathan M Smith");
-//            //u.setUser("JS01");
-//            User returns = restTemplate.postForObject(BASE_URL, u, User.class, vars);
-//           // LOGGER.debug("User:  " + u.toString());
-//        }
-//        catch (HttpClientErrorException e)
-//        {
-//            e.printStackTrace();
-//        }
-
-       // ResponseEntity<User> postResponse = restTemplate.postForEntity(BASE_URL, user, User.class);
 
 
+    }
+
+    public List<String> findAllStrings(){
+        try {
+            return restTemplate.exchange(BASE_URL + "stringusers",
+                    HttpMethod.GET,
+                    null,
+                    new ParameterizedTypeReference<List<String>>(){}).getBody();
+        } catch (Exception e) {
+            return null;
+        }
+
+
+    }
+
+    public User getUserByEmail(String email){
+
+        try {
+            // Log.v("asd", "HUUUI");
+            User user =  restTemplate.getForObject(BASE_URL + "stringusers/" + email, User.class);
+//                Log.v("ID", String.valueOf(auto.getIdAuto()));
+//            Log.v("MODEL", String.valueOf(auto.getModel()));
+            return user;
+
+
+        } catch (Exception e) {
+            //Log.v("asd", "sdaasd");
+            return null;
+
+
+        }
     }
 
 

@@ -48,8 +48,9 @@ import static android.Manifest.permission.READ_CONTACTS;
  */
 public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<Cursor> {
 
-    public List<User> listUser;
+    public List<String> listUser;
     private User mainUser;
+    private Long goodEmail;
     /**
      * Id to identity READ_CONTACTS permission request.
      */
@@ -353,19 +354,24 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                 return false;
             }
 
-//            for (String credential : DUMMY_CREDENTIALS) {
+//            for (String credential : listUser) {
 //                String[] pieces = credential.split(":");
 //                if (pieces[0].equals(mEmail)) {
 //                    // Account exists, return true if the password matches.
 //                    return pieces[1].equals(mPassword);
 //                }
 //            }
+
             boolean correctEmail = false;
-            for(User user : listUser) {
-                if(user.getEmail().equals(mEmail)){
+            for(String credential : listUser) {
+                String[] pieces = credential.split(":");
+                if(pieces[0].equals(mEmail)){
                     correctEmail = true;
-                    if(user.getPassword().equals(mPassword)){
-                        User.mUser = user;
+                    if(pieces[1].equals(mPassword)){
+                        //User.mUser = user;
+                        goodEmail= Long.valueOf(pieces[2]);
+
+
                         return true;
                     }else{
 
@@ -385,11 +391,13 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         protected void onPostExecute(final Boolean success) {
             mAuthTask = null;
             showProgress(false);
+           // new HttpRequestAskUser().execute();
 
             if (success) {
-                Intent buttonIntent = new Intent(LoginActivity.this, MainActivity.class);
-                //buttonIntent.putExtra("Uzytkownik", );
-                startActivity(buttonIntent);
+//                Intent buttonIntent = new Intent(LoginActivity.this, MainActivity.class);
+//                //buttonIntent.putExtra("Uzytkownik", );
+//                startActivity(buttonIntent);
+                new HttpRequestAskUser().execute();
             } else {
                 mPasswordView.setError(getString(R.string.error_incorrect_password));
                 mPasswordView.requestFocus();
@@ -406,18 +414,40 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
 
 
-    private class HttpRequestAsk extends AsyncTask<Void, Void, List<User>> {
+    private class HttpRequestAsk extends AsyncTask<Void, Void, List<String>> {
 
         @Override
-        protected List<User> doInBackground(Void... voids) {
+        protected List<String> doInBackground(Void... voids) {
            UserRestClient userRestClient = new UserRestClient();
-            return userRestClient.finAll();
+            return userRestClient.findAllStrings();
 
         }
 
         @Override
-        protected void onPostExecute(List<User> users) {
+        protected void onPostExecute(List<String> users) {
             listUser = users;
+            //Toast.makeText(LoginActivity.this, String.valueOf(listUser.get(0).getAutos().size()), Toast.LENGTH_LONG).show();
+
+        }
+    }
+
+
+    private class HttpRequestAskUser extends AsyncTask<Void, Void, User> {
+
+        @Override
+        protected User doInBackground(Void... voids) {
+            UserRestClient userRestClient = new UserRestClient();
+            return userRestClient.find(goodEmail);
+
+        }
+
+        @Override
+        protected void onPostExecute(User user) {
+            User.mUser = user;
+                            Intent buttonIntent = new Intent(LoginActivity.this, MainActivity.class);
+                //buttonIntent.putExtra("Uzytkownik", );
+                startActivity(buttonIntent);
+            //listUser = users;
             //Toast.makeText(LoginActivity.this, String.valueOf(listUser.get(0).getAutos().size()), Toast.LENGTH_LONG).show();
 
         }

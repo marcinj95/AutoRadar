@@ -73,10 +73,10 @@ public class MainActivity extends AppCompatActivity
         View header = navigationView.getHeaderView(0);
 
         TextView nameView = header.findViewById(R.id.textViewUserName);
-        //nameView.setText(mainUser.getName());
+        nameView.setText(mainUser.getName());
 
         TextView emailView = header.findViewById(R.id.textViewUserEmail);
-       // emailView.setText(mainUser.getEmail());
+        emailView.setText(mainUser.getEmail());
 
 //        TextView mTitle = toolbar.getT
 //
