@@ -34,13 +34,13 @@ public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
    private User mainUser;
-   private boolean ifUserAutos = false;
+   public static boolean ifUserAutos = false;
    private MenuItem mMenu;
     private AdView mAdView;
 
    //
     List<Auto> listaAut;
-
+    FloatingActionButton fab;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,7 +62,7 @@ public class MainActivity extends AppCompatActivity
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+         fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -115,7 +115,7 @@ public class MainActivity extends AppCompatActivity
 
             if(ifUserAutos){
                 ifUserAutos = false;
-
+                fab.setVisibility(FloatingActionButton.VISIBLE);
                 mMenu.setTitle("Moje oferty");
                 new MainActivity.HttpRequestAsk().execute();
 
@@ -181,10 +181,12 @@ public class MainActivity extends AppCompatActivity
             if (ifUserAutos == false){
                 new MainActivity.HttpRequestAskUserAutos().execute();
                 ifUserAutos = true;
+                fab.setVisibility(FloatingActionButton.GONE);
                 item.setTitle("Wróć");
             }else{
                 new MainActivity.HttpRequestAsk().execute();
                 ifUserAutos = false;
+                fab.setVisibility(FloatingActionButton.VISIBLE);
                 item.setTitle("Moje oferty");
             }
 
@@ -210,8 +212,10 @@ public class MainActivity extends AppCompatActivity
         protected List<Auto> doInBackground(Void... voids) {
             AutoRestClient autoRestClient = new AutoRestClient();
            // Auto auto = autoRestClient.find(12L);
-            return autoRestClient.finAllNoUser();
 
+
+           // return autoRestClient.finAllNoUser();
+                return autoRestClient.finAll();
         }
 
         @Override

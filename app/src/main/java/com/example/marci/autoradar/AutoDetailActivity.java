@@ -77,6 +77,21 @@ public class AutoDetailActivity extends AppCompatActivity {
             image.setImageBitmap(bitmap);
         }
 
+        if (MainActivity.ifUserAutos == true) {
+            TextView edit  = findViewById(R.id.textViewEdit);
+            edit.setVisibility(TextView.VISIBLE);
+
+            edit.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(AutoDetailActivity.this, NewAutoActivity.class);
+                    intent.putExtra("AutoS",auto );
+                    startActivity(intent);
+                }
+            });
+        }
+
+
         //Toast.makeText(this, String.valueOf(auto.getIdAuto()), Toast.LENGTH_LONG).show();
 
 

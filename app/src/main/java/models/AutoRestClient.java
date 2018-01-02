@@ -1,5 +1,6 @@
 package models;
 
+import android.location.Address;
 import android.util.Log;
 
 import org.springframework.http.HttpMethod;
@@ -10,7 +11,9 @@ import org.springframework.web.client.*;
 import org.springframework.core.*;
 
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import entities.*;
 
@@ -121,6 +124,21 @@ public class AutoRestClient {
     public void postAuto(Auto auto){
 
         restTemplate.postForEntity(BASE_URL, auto, Auto.class);
+
+
+
+    }
+
+    public void updateAuto(Auto auto){
+
+        Map<String,Long> map = new HashMap<>();
+        map.put("idAuto", auto.getIdAuto());
+        //map.put("name", "Ram");
+
+        restTemplate.put(BASE_URL+ auto.getIdAuto().toString(), auto, map);
+
+//        restTemplate.put();
+
 
 
     }

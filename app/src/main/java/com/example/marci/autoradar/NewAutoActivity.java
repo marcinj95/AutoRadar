@@ -55,6 +55,7 @@ public class NewAutoActivity extends AppCompatActivity implements AdapterView.On
 
 
     private User mUser;
+    private Auto mAuto;
 
 
 
@@ -82,102 +83,196 @@ public class NewAutoActivity extends AppCompatActivity implements AdapterView.On
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_auto);
 
-        Intent i = getIntent();
-        mUser= (User)i.getSerializableExtra("UserS");
 
-        Spinner spinnerCarBrand = findViewById(R.id.spinnerCarBrand);
-        spinnerCarBrand.setOnItemSelectedListener(this);
+        if(MainActivity.ifUserAutos == false) {
+            Intent i = getIntent();
+            mUser = (User) i.getSerializableExtra("UserS");
 
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
-                R.array.carBrand_array, android.R.layout.simple_spinner_item);
+            Spinner spinnerCarBrand = findViewById(R.id.spinnerCarBrand);
+            spinnerCarBrand.setOnItemSelectedListener(this);
 
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinnerCarBrand.setAdapter(adapter);
+            ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
+                    R.array.carBrand_array, android.R.layout.simple_spinner_item);
 
-        progressBar = findViewById(R.id.progressBar2);
-        progressBar.setVisibility(View.GONE);
+            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            spinnerCarBrand.setAdapter(adapter);
 
-        mainScrollView = findViewById(R.id.newAutoMainScrollview);
+            progressBar = findViewById(R.id.progressBar2);
+            progressBar.setVisibility(View.GONE);
 
-
-
-
+            mainScrollView = findViewById(R.id.newAutoMainScrollview);
 
 
-        spinnerCarModel = findViewById(R.id.spinnerModel);
-        spinnerCarModel.setVisibility(View.GONE);
-        spinnerCarModel.setOnItemSelectedListener(this);
+            spinnerCarModel = findViewById(R.id.spinnerModel);
+            spinnerCarModel.setVisibility(View.GONE);
+            spinnerCarModel.setOnItemSelectedListener(this);
 // Create an ArrayAdapter using the string array and a default spinner layout
 
-        final EditText tytul = findViewById(R.id.editTextNewTitle);
-        final EditText rocznik = findViewById(R.id.editTextNewYear);
-        final EditText cena = findViewById(R.id.editTextNewPrice);
-        final EditText opis = findViewById(R.id.editTextNewAutoDesc);
-       // EditText tel = findViewById(R.id.editTextNewTel);
-       final  EditText adres = findViewById(R.id.editTextNewAdress);
+            final EditText tytul = findViewById(R.id.editTextNewTitle);
+            final EditText rocznik = findViewById(R.id.editTextNewYear);
+            final EditText cena = findViewById(R.id.editTextNewPrice);
+            final EditText opis = findViewById(R.id.editTextNewAutoDesc);
+            // EditText tel = findViewById(R.id.editTextNewTel);
+            final EditText adres = findViewById(R.id.editTextNewAdress);
 
 
-        Button button = findViewById(R.id.buttonNewAddNewAuto);
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+            Button button = findViewById(R.id.buttonNewAddNewAuto);
+            button.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
 
 
-                if(mUser!=null && image!=null)
-                {
-                    Auto auto = new Auto();
-                    auto.setTitle(tytul.getText().toString());
-                    auto.setIdPhoto(50);
-                    auto.setIdEquipment(50);
-                    auto.setProductionYear(Integer.parseInt(rocznik.getText().toString()));
-                    auto.setPrice(Integer.parseInt(cena.getText().toString()));
-                    auto.setDescription(opis.getText().toString());
-                    auto.setCarBrand(carBrand);
-                    auto.setModel(carModel);
-                    auto.setAdres(adres.getText().toString());
-                    auto.setUser(mUser);
-                    auto.setImage(image);
+                    if (mUser != null && image != null) {
+                        Auto auto = new Auto();
+                        auto.setTitle(tytul.getText().toString());
+                        auto.setIdPhoto(50);
+                        auto.setIdEquipment(50);
+                        auto.setProductionYear(Integer.parseInt(rocznik.getText().toString()));
+                        auto.setPrice(Integer.parseInt(cena.getText().toString()));
+                        auto.setDescription(opis.getText().toString());
+                        auto.setCarBrand(carBrand);
+                        auto.setModel(carModel);
+                        auto.setAdres(adres.getText().toString());
+                        auto.setUser(mUser);
+                        auto.setImage(image);
 
-                    new AddAutoAsync().execute(auto);
-                }else {
-                    Toast.makeText(NewAutoActivity.this, "Coś poszło nie tak !", Toast.LENGTH_SHORT).show();
+                        new AddAutoAsync().execute(auto);
+                    } else {
+                        Toast.makeText(NewAutoActivity.this, "Coś poszło nie tak !", Toast.LENGTH_SHORT).show();
+                    }
+
+
                 }
+            });
+
+            // OBSLUGA KAMERY
+
+            imageView = findViewById(R.id.imageViewAddPhoto);
+
+            if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+                // takePictureButton.setEnabled(false);
+                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE}, 0);
+            }
+
+
+            imageView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    takePicture();
+
+
+                    //Toast.makeText(NewAutoActivity.this, file.getEncodedPath(), Toast.LENGTH_LONG).show();
+                }
+            });
 
 
 
 
+
+
+
+
+
+        }else{
+
+            Intent i = getIntent();
+            mAuto = (Auto) i.getSerializableExtra("AutoS");
+
+            Spinner spinnerCarBrand = findViewById(R.id.spinnerCarBrand);
+            spinnerCarModel = findViewById(R.id.spinnerModel);
+
+            spinnerCarBrand.setVisibility(Spinner.GONE);
+            spinnerCarModel.setVisibility(Spinner.GONE);
+
+            progressBar = findViewById(R.id.progressBar2);
+            progressBar.setVisibility(View.GONE);
+
+            mainScrollView = findViewById(R.id.newAutoMainScrollview);
+
+            final EditText tytul = findViewById(R.id.editTextNewTitle);
+            final EditText rocznik = findViewById(R.id.editTextNewYear);
+            final EditText cena = findViewById(R.id.editTextNewPrice);
+            final EditText opis = findViewById(R.id.editTextNewAutoDesc);
+            // EditText tel = findViewById(R.id.editTextNewTel);
+            final EditText adres = findViewById(R.id.editTextNewAdress);
+            imageView = findViewById(R.id.imageViewAddPhoto);
+
+            if(mAuto!=null){
+                tytul.setText(mAuto.getTitle());
+                rocznik.setText(String.valueOf(mAuto.getProductionYear()));
+                cena.setText(String.valueOf(mAuto.getPrice()));
+                opis.setText(mAuto.getDescription());
+                adres.setText(mAuto.getAdres());
+
+                Bitmap bitmap = BitmapFactory.decodeByteArray(mAuto.getImage(), 0, mAuto.getImage().length);
+
+                image = mAuto.getImage();
+
+                imageView.getLayoutParams().height = LinearLayout.LayoutParams.WRAP_CONTENT;
+                imageView.getLayoutParams().width = LinearLayout.LayoutParams.WRAP_CONTENT;
+                imageView.requestLayout();
+
+                imageView.setImageBitmap(bitmap);
 
             }
-        });
 
-        // OBSLUGA KAMERY
 
-        imageView = findViewById(R.id.imageViewAddPhoto);
 
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
-           // takePictureButton.setEnabled(false);
-            ActivityCompat.requestPermissions(this, new String[] { Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE }, 0);
+            Button button = findViewById(R.id.buttonNewAddNewAuto);
+            button.setText("Aktualizuj!");
+            button.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+
+                    if (mAuto!=null) {
+                        Auto auto = new Auto();
+                        auto.setIdAuto(mAuto.getIdAuto());
+                        auto.setCreatedAt(mAuto.getCreatedAt());
+                        auto.setTitle(tytul.getText().toString());
+                        auto.setIdPhoto(50);
+                        auto.setIdEquipment(50);
+                        auto.setProductionYear(Integer.parseInt(rocznik.getText().toString()));
+                        auto.setPrice(Integer.parseInt(cena.getText().toString()));
+                        auto.setDescription(opis.getText().toString());
+                        auto.setCarBrand(mAuto.getCarBrand());
+                        auto.setModel(mAuto.getModel());
+                        auto.setAdres(adres.getText().toString());
+                        auto.setUser(mUser);
+                        auto.setImage(image);
+                        auto.setUser(mAuto.getUser());
+
+                        new UpdateAutoAsync().execute(auto);
+                    } else {
+                        Toast.makeText(NewAutoActivity.this, "Coś poszło nie tak !", Toast.LENGTH_SHORT).show();
+                    }
+
+
+                }
+            });
+
+
+
+
+            if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+                // takePictureButton.setEnabled(false);
+                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE}, 0);
+            }
+
+
+            imageView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    takePicture();
+
+
+                    //Toast.makeText(NewAutoActivity.this, file.getEncodedPath(), Toast.LENGTH_LONG).show();
+                }
+            });
+
+
+
         }
-
-
-        imageView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                takePicture();
-
-
-
-
-            //Toast.makeText(NewAutoActivity.this, file.getEncodedPath(), Toast.LENGTH_LONG).show();
-            }
-        });
-
-
-
-
-
-
-
     }
 
     public void takePicture() {
@@ -354,6 +449,48 @@ public class NewAutoActivity extends AppCompatActivity implements AdapterView.On
             AutoRestClient autoRestClient = new AutoRestClient();
             if(autos[0]!=null && image!=null){
                 autoRestClient.postAuto(autos[0]);
+            }else {
+                Toast.makeText(NewAutoActivity.this, "Nie dodałeś zdjęcia !", Toast.LENGTH_SHORT).show();
+            }
+
+
+
+            return null;
+        }
+    }
+
+
+    private class UpdateAutoAsync extends  AsyncTask<Auto, Integer, Void>{
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            progressBar.setVisibility(View.VISIBLE);
+            mainScrollView.fullScroll(ScrollView.FOCUS_UP);
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+
+            progressBar.setVisibility(View.GONE);
+            Toast.makeText(NewAutoActivity.this, "Zaktualizowano !", Toast.LENGTH_LONG).show();
+            finish();
+
+        }
+
+        @Override
+        protected void onProgressUpdate(Integer... values) {
+            progressBar.setProgress(values[0]);
+        }
+
+        @Override
+        protected Void doInBackground(Auto... autos) {
+
+            // Auto auto = autos[0];
+
+            AutoRestClient autoRestClient = new AutoRestClient();
+            if(autos[0]!=null ){
+                autoRestClient.updateAuto(autos[0]);
             }else {
                 Toast.makeText(NewAutoActivity.this, "Nie dodałeś zdjęcia !", Toast.LENGTH_SHORT).show();
             }

@@ -377,7 +377,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     marker.setTag(auto);
                     marker.showInfoWindow();
 
+                    mMap.moveCamera(CameraUpdateFactory.newLatLng(p));
                      mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(p, 12.0f));
+
+
+                    //mMap.animateCamera(CameraUpdateFactory.zoomTo(14.0f));
 
 
                 }
