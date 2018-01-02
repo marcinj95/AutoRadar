@@ -16,7 +16,8 @@ import entities.*;
 
 public class AutoRestClient {
 
-    private String BASE_URL="http://192.168.2.14:8080/api/autos/";
+   // private String BASE_URL="http://192.168.2.14:8080/api/autos/";
+   private String BASE_URL="http://192.168.100.10:8080/api/autos/";
     private RestTemplate restTemplate = new RestTemplate();
 
     public Auto find(Long id){
@@ -46,7 +47,7 @@ public class AutoRestClient {
         List<Auto> rates = rateResponse.getBody();
 
         Long i;
-        String url="http://192.168.2.14:8080/api/autos/user/";
+        String url="http://192.168.100.10:8080/api/autos/user/";
         for(Auto rate : rates)
         {
             i=rate.getIdAuto();
@@ -101,7 +102,7 @@ public class AutoRestClient {
         List<Auto> rates = rateResponse.getBody();
 
         Long i;
-        String url="http://192.168.2.14:8080/api/autos/user/";
+        String url="http://192.168.100.10:8080/api/autos/user/";
         for(Auto rate : rates)
         {
             i=rate.getIdAuto();

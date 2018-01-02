@@ -26,6 +26,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
+import android.widget.ScrollView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -61,6 +62,7 @@ public class NewAutoActivity extends AppCompatActivity implements AdapterView.On
     Spinner spinnerCarModel;
     ImageView imageView;
     ProgressBar progressBar;
+    ScrollView mainScrollView;
 
 
 
@@ -94,6 +96,9 @@ public class NewAutoActivity extends AppCompatActivity implements AdapterView.On
 
         progressBar = findViewById(R.id.progressBar2);
         progressBar.setVisibility(View.GONE);
+
+        mainScrollView = findViewById(R.id.newAutoMainScrollview);
+
 
 
 
@@ -211,10 +216,11 @@ public class NewAutoActivity extends AppCompatActivity implements AdapterView.On
 
                 Bitmap src= BitmapFactory.decodeFile(file.getEncodedPath());
 
-                Bitmap bitmap1 = Bitmap.createScaledBitmap(src,586,271,false );
+                //Bitmap bitmap1 = Bitmap.createScaledBitmap(src,586,271,false );
+                Bitmap bitmap1 = Bitmap.createScaledBitmap(src,1280,720,false );
 
                 ByteArrayOutputStream baos = new ByteArrayOutputStream();
-                bitmap1.compress(Bitmap.CompressFormat.WEBP, 60, baos);
+                bitmap1.compress(Bitmap.CompressFormat.WEBP, 90, baos);
                 image = baos.toByteArray();
                // new MyTask().execute();
 
@@ -322,6 +328,7 @@ public class NewAutoActivity extends AppCompatActivity implements AdapterView.On
         protected void onPreExecute() {
             super.onPreExecute();
             progressBar.setVisibility(View.VISIBLE);
+            mainScrollView.fullScroll(ScrollView.FOCUS_UP);
         }
 
         @Override

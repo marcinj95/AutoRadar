@@ -4,15 +4,19 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.os.AsyncTask;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.constraint.ConstraintLayout;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.marci.autoradar.AutoDetailActivity;
 import com.example.marci.autoradar.MainActivity;
@@ -21,6 +25,7 @@ import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
 
+import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.List;
 
@@ -95,20 +100,34 @@ public class AutoListAdapter extends ArrayAdapter<Auto> {
         textViewData.setText(date);
 
 
+//        ImageView imageView = convertView.findViewById(R.id.imageViewListLayout);
+//        if(auto.getImage()!=null){
+//
+//           // imageView.measure(View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED), View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED));
+//
+//            Bitmap bitmap = BitmapFactory.decodeByteArray(auto.getImage(), 0, auto.getImage().length);
+//           // Bitmap bitmap1 = Bitmap.createScaledBitmap(bitmap,imageView.getMeasuredWidth(),imageView.getMeasuredHeight(),false );
+//
+//            imageView.setImageBitmap(bitmap);
+//
+//
+//        }else {
+//            imageView.setImageResource(R.drawable.photo_camera);
+//        }
+
+
+
+
+
         ImageView imageView = convertView.findViewById(R.id.imageViewListLayout);
-        if(auto.getImage()!=null){
+        imageView.setImageResource(0);
 
-           // imageView.measure(View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED), View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED));
-
-            Bitmap bitmap = BitmapFactory.decodeByteArray(auto.getImage(), 0, auto.getImage().length);
-           // Bitmap bitmap1 = Bitmap.createScaledBitmap(bitmap,imageView.getMeasuredWidth(),imageView.getMeasuredHeight(),false );
-
-            imageView.setImageBitmap(bitmap);
+//        ProgressBar progressBar = convertView.findViewById(R.id.progressBar3);
+//        progressBar.setVisibility(ProgressBar.VISIBLE);
 
 
-        }else {
-            imageView.setImageResource(R.drawable.photo_camera);
-        }
+        new DownloadImageTask((ImageView) convertView.findViewById(R.id.imageViewListLayout),(ProgressBar)convertView.findViewById(R.id.progressBar3),
+                auto.getIdAuto()).execute(auto);
 
 
 
@@ -132,4 +151,53 @@ public class AutoListAdapter extends ArrayAdapter<Auto> {
         return convertView;
 
     }
+
+    private class DownloadImageTask extends AsyncTask<Auto, Void, Bitmap> {
+        ImageView bmImage;
+        Long teges;
+        ProgressBar progressBar;
+
+        public DownloadImageTask(ImageView bmImage,ProgressBar progressBar, Long teges) {
+            this.bmImage = bmImage;
+            this.teges = teges;
+            this.progressBar = progressBar;
+        }
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            bmImage.setTag(this.teges);
+            progressBar.setVisibility(View.VISIBLE);
+        }
+
+        protected Bitmap doInBackground(Auto... urls) {
+            Auto auto = urls[0];
+
+            Bitmap bitmap = BitmapFactory.decodeByteArray(auto.getImage(), 0, auto.getImage().length);
+
+            return bitmap;
+        }
+
+        protected void onPostExecute(Bitmap result) {
+
+            Long lol = (Long) bmImage.getTag();
+
+            if(lol != null && lol.equals(this.teges)){
+                bmImage.setImageBitmap(result);
+                progressBar.setVisibility(View.GONE);
+            } else {
+               // bmImage.setImageResource(R.drawable.photo_camera);
+                bmImage.setImageResource(0);
+                progressBar.setVisibility(View.GONE);
+            }
+
+        }
+
+    }
+
+
 }
+
+
+
+
