@@ -18,8 +18,8 @@ public class Auto  implements Serializable{
     private  String carBrand;
     private  String model;
     private int price;
-    private int idEquipment;
-    private int idPhoto;
+    //private int idEquipment;
+   // private int idPhoto;
     ////
     private byte[] image;
     private String adres;
@@ -117,21 +117,21 @@ public class Auto  implements Serializable{
         this.price = price;
     }
 
-    public int getIdEquipment() {
-        return idEquipment;
-    }
-
-    public void setIdEquipment(int idEquipment) {
-        this.idEquipment = idEquipment;
-    }
-
-    public int getIdPhoto() {
-        return idPhoto;
-    }
-
-    public void setIdPhoto(int idPhoto) {
-        this.idPhoto = idPhoto;
-    }
+//    public int getIdEquipment() {
+//        return idEquipment;
+//    }
+//
+//    public void setIdEquipment(int idEquipment) {
+//        this.idEquipment = idEquipment;
+//    }
+//
+//    public int getIdPhoto() {
+//        return idPhoto;
+//    }
+//
+//    public void setIdPhoto(int idPhoto) {
+//        this.idPhoto = idPhoto;
+//    }
 
     public byte[] getImage() {
         return image;

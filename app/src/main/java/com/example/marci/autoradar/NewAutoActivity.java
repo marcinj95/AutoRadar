@@ -85,8 +85,8 @@ public class NewAutoActivity extends AppCompatActivity implements AdapterView.On
 
 
         if(MainActivity.ifUserAutos == false) {
-            Intent i = getIntent();
-            mUser = (User) i.getSerializableExtra("UserS");
+           // Intent i = getIntent();
+            mUser = User.mUser;//(User) i.getSerializableExtra("UserS");
 
             Spinner spinnerCarBrand = findViewById(R.id.spinnerCarBrand);
             spinnerCarBrand.setOnItemSelectedListener(this);
@@ -125,8 +125,8 @@ public class NewAutoActivity extends AppCompatActivity implements AdapterView.On
                     if (mUser != null && image != null) {
                         Auto auto = new Auto();
                         auto.setTitle(tytul.getText().toString());
-                        auto.setIdPhoto(50);
-                        auto.setIdEquipment(50);
+//                        auto.setIdPhoto(50);
+//                        auto.setIdEquipment(50);
                         auto.setProductionYear(Integer.parseInt(rocznik.getText().toString()));
                         auto.setPrice(Integer.parseInt(cena.getText().toString()));
                         auto.setDescription(opis.getText().toString());
@@ -230,8 +230,8 @@ public class NewAutoActivity extends AppCompatActivity implements AdapterView.On
                         auto.setIdAuto(mAuto.getIdAuto());
                         auto.setCreatedAt(mAuto.getCreatedAt());
                         auto.setTitle(tytul.getText().toString());
-                        auto.setIdPhoto(50);
-                        auto.setIdEquipment(50);
+//                        auto.setIdPhoto(50);
+//                        auto.setIdEquipment(50);
                         auto.setProductionYear(Integer.parseInt(rocznik.getText().toString()));
                         auto.setPrice(Integer.parseInt(cena.getText().toString()));
                         auto.setDescription(opis.getText().toString());

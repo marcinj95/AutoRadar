@@ -69,7 +69,7 @@ public class MainActivity extends AppCompatActivity
 //                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
 //                        .setAction("Action", null).show();
                 Intent intent = new Intent(MainActivity.this, NewAutoActivity.class);
-                intent.putExtra("UserS",mainUser );
+               // intent.putExtra("UserS",mainUser );
                 startActivity(intent);
 
             }
@@ -215,7 +215,7 @@ public class MainActivity extends AppCompatActivity
 
 
            // return autoRestClient.finAllNoUser();
-                return autoRestClient.finAll();
+                return autoRestClient.finAllNoUser();
         }
 
         @Override

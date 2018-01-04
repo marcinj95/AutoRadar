@@ -140,6 +140,7 @@ public class AutoListAdapter extends ArrayAdapter<Auto> {
 
                 //auto.setImage(null);
                 Intent intent = new Intent(context, AutoDetailActivity.class);
+                auto.setUser(null);
                 intent.putExtra("AutoS", auto);
 
 

@@ -96,6 +96,32 @@ public class AutoRestClient {
 
     }
 
+    public String getCityAndDateUser(Long id){
+
+        String url="http://192.168.100.10:8080/api/autos/getCityAndDateUser/" + String.valueOf(id);
+
+        String s = restTemplate.getForObject(url, String.class);
+
+
+        return s;
+
+
+
+    }
+
+    public String getUserTel(Long id){
+
+        String url="http://192.168.100.10:8080/api/autos/getUserTel/" + String.valueOf(id);
+
+        String s = restTemplate.getForObject(url, String.class);
+
+
+        return s;
+
+
+
+    }
+
     public List<Auto> findAllByUser(User user2){
 
         ResponseEntity<List<Auto>> rateResponse =
@@ -104,18 +130,18 @@ public class AutoRestClient {
                         });
         List<Auto> rates = rateResponse.getBody();
 
-        Long i;
-        String url="http://192.168.100.10:8080/api/autos/user/";
-        for(Auto rate : rates)
-        {
-            i=rate.getIdAuto();
-            User user =  restTemplate.getForObject(url + i, User.class);
-            if(user != null)
-            {
-                rate.setUser(user);
-            }
-
-        }
+//        Long i;
+//        String url="http://192.168.100.10:8080/api/autos/user/";
+//        for(Auto rate : rates)
+//        {
+//            i=rate.getIdAuto();
+//            User user =  restTemplate.getForObject(url + i, User.class);
+//            if(user != null)
+//            {
+//                rate.setUser(user);
+//            }
+//
+//        }
 
         return rates;
 

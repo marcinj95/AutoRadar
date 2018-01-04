@@ -127,8 +127,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 //        mCurrLocationMarker = mMap.addMarker(markerOptions);
 
         //move map camera
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
-        mMap.animateCamera(CameraUpdateFactory.zoomTo(14.0f));
+        if(mAuto==null){
+            mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
+            mMap.animateCamera(CameraUpdateFactory.zoomTo(14.0f));
+        }
+
         mMap.setMinZoomPreference(6.0f);
         mMap.setMaxZoomPreference(17.0f);
 
@@ -235,7 +238,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         protected List<Auto> doInBackground(Void... voids) {
             AutoRestClient autoRestClient = new AutoRestClient();
             // Auto auto = autoRestClient.find(12L);
-            return autoRestClient.finAll();
+            return autoRestClient.finAllNoUser();
 
         }
 
@@ -313,6 +316,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         if (auto != null) {
 
             Intent intent = new Intent(MapsActivity.this, AutoDetailActivity.class);
+            auto.setUser(null);
             intent.putExtra("AutoS", auto);
 
 
