@@ -85,7 +85,7 @@ public class UserRestClient {
 
         try {
             // Log.v("asd", "HUUUI");
-            User user =  restTemplate.getForObject(BASE_URL + "stringusers/" + email, User.class);
+            User user =  restTemplate.getForObject(BASE_URL + "stringusers/" + email + "/", User.class);
 //                Log.v("ID", String.valueOf(auto.getIdAuto()));
 //            Log.v("MODEL", String.valueOf(auto.getModel()));
             return user;
@@ -99,5 +99,23 @@ public class UserRestClient {
         }
     }
 
+    // /check/{userEmail}/{userPass}"
+
+    public boolean checkIfCorrect(String email, String pass){
+
+            // Log.v("asd", "HUUUI");
+            boolean heh =  restTemplate.getForObject(BASE_URL + "check/" + email + "/" + pass, Boolean.class);
+//                Log.v("ID", String.valueOf(auto.getIdAuto()));
+//            Log.v("MODEL", String.valueOf(auto.getModel()));
+        return heh;
+
+    }
+
+//    public User getUserByEmail(String userEmail){
+//
+//        User user = restTemplate.getForObject(BASE_URL + "tringusers/" + userEmail, User.class);
+//        return user;
+//
+//    }
 
 }

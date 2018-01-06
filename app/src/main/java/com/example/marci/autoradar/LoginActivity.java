@@ -94,7 +94,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
         mAdView.loadAd(adRequest);
 
-        new LoginActivity.HttpRequestAsk().execute();
+       // new LoginActivity.HttpRequestAsk().execute();
 
        // setupActionBar();
         // Set up the login form.
@@ -362,12 +362,12 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         protected Boolean doInBackground(Void... params) {
             // TODO: attempt authentication against a network service.
 
-            try {
+/*            try {
                 // Simulate network access.
                 Thread.sleep(1);
             } catch (InterruptedException e) {
                 return false;
-            }
+            }*/
 
 //            for (String credential : listUser) {
 //                String[] pieces = credential.split(":");
@@ -376,30 +376,33 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 //                    return pieces[1].equals(mPassword);
 //                }
 //            }
+//TUU
+//            boolean correctEmail = false;
+//            for(String credential : listUser) {
+//                String[] pieces = credential.split(":");
+//                if(pieces[0].equals(mEmail)){
+//                    correctEmail = true;
+//                    if(pieces[1].equals(mPassword)){
+//                        //User.mUser = user;
+//                        goodEmail= Long.valueOf(pieces[2]);
+//
+//
+//                        return true;
+//                    }else{
+//
+//                       // mPasswordView.setError(getString(R.string.error_incorrect_password));
+//                       // mPasswordView.requestFocus();
+//                    }
+//
+//                }
+//            }
+//            if(correctEmail==false)mEmailView.setError(getString(R.string.error_incorrect_email));
+//
+//            // TODO: register the new account here.
+//            return false;
 
-            boolean correctEmail = false;
-            for(String credential : listUser) {
-                String[] pieces = credential.split(":");
-                if(pieces[0].equals(mEmail)){
-                    correctEmail = true;
-                    if(pieces[1].equals(mPassword)){
-                        //User.mUser = user;
-                        goodEmail= Long.valueOf(pieces[2]);
-
-
-                        return true;
-                    }else{
-
-                       // mPasswordView.setError(getString(R.string.error_incorrect_password));
-                       // mPasswordView.requestFocus();
-                    }
-
-                }
-            }
-            if(correctEmail==false)mEmailView.setError(getString(R.string.error_incorrect_email));
-
-            // TODO: register the new account here.
-            return false;
+            UserRestClient userRestClient = new UserRestClient();
+            return userRestClient.checkIfCorrect(mEmail, mPassword);
         }
 
         @Override
@@ -414,8 +417,9 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 //                startActivity(buttonIntent);
                 new HttpRequestAskUser().execute();
             } else {
-                mPasswordView.setError(getString(R.string.error_incorrect_password));
-                mPasswordView.requestFocus();
+//                mPasswordView.setError(getString(R.string.error_incorrect_password));
+//                mPasswordView.requestFocus();
+                Toast.makeText(LoginActivity.this, "NIEPOPRAWNE DANE", Toast.LENGTH_SHORT).show();
             }
         }
 
@@ -452,7 +456,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         @Override
         protected User doInBackground(Void... voids) {
             UserRestClient userRestClient = new UserRestClient();
-            return userRestClient.find(goodEmail);
+            return userRestClient.getUserByEmail(mEmailView.getText().toString());
 
         }
 
