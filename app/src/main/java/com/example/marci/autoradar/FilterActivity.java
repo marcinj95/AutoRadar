@@ -1,5 +1,6 @@
 package com.example.marci.autoradar;
 
+import android.content.Intent;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.os.AsyncTask;
@@ -17,6 +18,7 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -227,20 +229,41 @@ public class FilterActivity extends AppCompatActivity implements AdapterView.OnI
 
 
 
-    private class HttpRequestAsk extends AsyncTask<Void, Void, Void> {
+    private class HttpRequestAsk extends AsyncTask<Void, Void, List<Auto>> {
 
 
 
         @Override
-        protected Void doInBackground(Void... voids) {
+        protected List<Auto> doInBackground(Void... voids) {
             AutoRestClient autoRestClient = new AutoRestClient();
-            autoRestClient.searchFor(phrase1,carBrand1,carModel1,rocznikFrom1,rocznikTo1,cenaFrom1,cenaTo1);
+           return autoRestClient.searchFor(phrase1,carBrand1,carModel1,rocznikFrom1,rocznikTo1,cenaFrom1,cenaTo1);
 
 
             // return autoRestClient.finAllNoUser();
-            return null;
+
         }
 
+        @Override
+        protected void onPostExecute(List<Auto> autos) {
+            super.onPostExecute(autos);
 
+            Intent intent = new Intent();
+
+            ArrayList<Auto> nowy = new ArrayList<>();
+            nowy.addAll(autos);
+
+
+            Bundle b = new Bundle();
+            b.putSerializable("autos", nowy);
+            intent.putExtras(b);
+
+
+            setResult(RESULT_OK, intent);
+            finish();
+
+
+
+
+        }
     }
 }

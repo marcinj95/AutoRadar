@@ -10,6 +10,7 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -27,6 +28,7 @@ import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import adapters.AutoListAdapaterRecycler;
@@ -40,6 +42,7 @@ public class MainActivity extends AppCompatActivity
 
    private User mainUser;
    public static boolean ifUserAutos = false;
+   private boolean ifFilterAutos = false;
    private MenuItem mMenu;
     private AdView mAdView;
 
@@ -129,7 +132,12 @@ public class MainActivity extends AppCompatActivity
                 mMenu.setTitle("Moje oferty");
                 new MainActivity.HttpRequestAsk().execute();
 
-            }else{
+            }else if(ifFilterAutos){
+                ifFilterAutos = false;
+                new MainActivity.HttpRequestAsk().execute();
+
+
+            }else {
                 super.onBackPressed();
             }
 
@@ -184,7 +192,8 @@ public class MainActivity extends AppCompatActivity
 //
 //            startActivity((intent));
             Intent intent = new Intent(this, FilterActivity.class);
-            startActivity(intent);
+            //startActivity(intent);
+            startActivityForResult(intent, 1);
 
         } else if (id == R.id.settings) {
 
@@ -216,7 +225,33 @@ public class MainActivity extends AppCompatActivity
         return true;
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
 
+        if (requestCode == 1) {
+            if(resultCode == RESULT_OK) {
+
+
+                Bundle b = data.getExtras();
+                if (b != null) {
+                    ArrayList<Auto> list; // = b.getParcelableArrayList("selectedContacts");
+                    list = (ArrayList<Auto>) b.getSerializable("autos");
+                    Log.v("HEHE", String.valueOf(list.size()));
+                    mAdapter = new AutoListAdapaterRecycler(list, MainActivity.this);
+                    mAdapter.notifyDataSetChanged();
+                    recyclerView.setAdapter(mAdapter);
+                    ifFilterAutos = true;
+
+
+//                    mSelectedContacts.addAll(newContacts);
+//                    mAdapter.notifyDataSetChanged();
+
+            }
+
+            }
+        }
+    }
 
     private class HttpRequestAsk extends AsyncTask<Void, Void, List<Auto>> {
 

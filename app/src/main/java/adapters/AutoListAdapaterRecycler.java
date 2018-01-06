@@ -64,7 +64,7 @@ public class AutoListAdapaterRecycler extends RecyclerView.Adapter<AutoListAdapa
     @Override
     public void onViewRecycled(MyViewHolder holder) {
         super.onViewRecycled(holder);
-        Glide.with(context).clear(holder.imageView);
+       // Glide.with(context).clear(holder.imageView);
 
 
     }
@@ -100,7 +100,7 @@ public class AutoListAdapaterRecycler extends RecyclerView.Adapter<AutoListAdapa
 //        holder.imageView.setImageBitmap(bitmap);
 
         //holder.progress.setVisibility(ProgressBar.GONE);
-        new DownloadImageTask(holder.imageView, holder.progress).execute(auto);
+        new DownloadImageTask(holder.imageView, holder.progress, auto.getIdAuto()).execute(auto);
         //Glide.with(context).load(auto.getImage()).into(holder.imageView);
 
 
@@ -135,19 +135,20 @@ public class AutoListAdapaterRecycler extends RecyclerView.Adapter<AutoListAdapa
 
     private class DownloadImageTask extends AsyncTask<Auto, Void, Bitmap> {
         ImageView bmImage;
-        //Long teges;
+        Long teges;
         ProgressBar progressBar;
 
-        public DownloadImageTask(ImageView bmImage,ProgressBar progressBar) {
+        public DownloadImageTask(ImageView bmImage,ProgressBar progressBar,Long teges) {
             this.bmImage = bmImage;
-           // this.teges = teges;
+            this.teges = teges;
             this.progressBar = progressBar;
         }
 
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            //bmImage.setTag(this.teges);
+            bmImage.setTag(this.teges);
+            bmImage.setImageResource(0);
             progressBar.setVisibility(View.VISIBLE);
         }
 
@@ -165,8 +166,20 @@ public class AutoListAdapaterRecycler extends RecyclerView.Adapter<AutoListAdapa
 
         protected void onPostExecute(Bitmap result) {
 
-            Glide.with(context).load(result).into(bmImage);
-            progressBar.setVisibility(View.GONE);
+
+           // progressBar.setVisibility(View.GONE);
+
+            Long lol = (Long) bmImage.getTag();
+
+            if(lol != null && lol.equals(this.teges)){
+               // Glide.with(context).load(result).into(bmImage);
+                bmImage.setImageBitmap(result);
+                progressBar.setVisibility(View.GONE);
+            } else {
+                // bmImage.setImageResource(R.drawable.photo_camera);
+                bmImage.setImageResource(0);
+                progressBar.setVisibility(View.GONE);
+            }
 
         }
 

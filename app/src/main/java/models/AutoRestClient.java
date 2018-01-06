@@ -172,19 +172,9 @@ public class AutoRestClient {
 
     }
 
-    public void searchFor(String title, String carBrand, String carModel, String yearFrom, String yearTo, String priceFrom, String priceTo){
+    public List<Auto> searchFor(String title, String carBrand, String carModel, String yearFrom, String yearTo, String priceFrom, String priceTo){
 
-       // {title}/{carBrand}/{carModel}/{yearFrom}/{yearTo}/{priceFrom}/{priceTo}")
-//        Map<String,String> map = new HashMap<>();
-//        map.put("title", title);
-//        map.put("carBrand", carBrand);
-//        map.put("carModel", carModel);
-//        map.put("yearFrom", )
-//        //map.put("name", "Ram");
-//
-//        restTemplate.put(BASE_URL+ auto.getIdAuto().toString(), auto, map);
-
-//        restTemplate.put();
+ //BEZ USER I IMAGE
 
 
         String url="http://192.168.2.14:8080/api/autos/" + title + "/" + carBrand + "/" + carModel + "/" +yearFrom +"/" +
@@ -198,7 +188,7 @@ public class AutoRestClient {
        // Toast.makeText(AutoRestClient.this, String.valueOf(rates.size()), Toast.LENGTH_LONG).show();
        // Log.v("MODEL", String.valueOf(rates.size()));
 
-
+        return rates;
 
 
 
