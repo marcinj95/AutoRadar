@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.example.marci.autoradar.FilterActivity">
+
+
+    <TextView
+        android:id="@+id/textViewFilterSomething"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:text="Wpisz fraze (nie wymagane)" />
+
+    <EditText
+        android:id="@+id/editTextFilterSomething"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:maxLength="73"
+        android:text="Opel" />
+
+    <TextView
+        android:id="@+id/textViewFilterCarBrand"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Wybierz markę                                              Wybierz model" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <Spinner
+            android:id="@+id/spinnerFilterCarBrand"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
+
+        <Spinner
+            android:id="@+id/spinnerFilterModel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/textViewFilterYears"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Wpisz rocznik od - do" />
+
+    <EditText
+        android:id="@+id/editTextFilterFromYear"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="number"
+        android:maxLength="4"
+        android:text="1990" />
+
+    <EditText
+        android:id="@+id/editTextFilterToYear"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="number"
+        android:maxLength="4"
+        android:text="2018" />
+
+    <TextView
+        android:id="@+id/textView12"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Podaj cene w zł" />
+
+    <EditText
+        android:id="@+id/editTextFilterFromPrice"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="number"
+        android:text="100" />
+
+    <EditText
+        android:id="@+id/editTextFilterToPrice"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="number"
+        android:text="1000000" />
+
+    <Button
+        android:id="@+id/buttonFilterSearch"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Szukaj" />
+
+</LinearLayout>

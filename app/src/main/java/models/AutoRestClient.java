@@ -2,6 +2,9 @@ package models;
 
 import android.location.Address;
 import android.util.Log;
+import android.widget.Toast;
+
+import com.example.marci.autoradar.FilterActivity;
 
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
@@ -164,6 +167,41 @@ public class AutoRestClient {
         restTemplate.put(BASE_URL+ auto.getIdAuto().toString(), auto, map);
 
 //        restTemplate.put();
+
+
+
+    }
+
+    public void searchFor(String title, String carBrand, String carModel, String yearFrom, String yearTo, String priceFrom, String priceTo){
+
+       // {title}/{carBrand}/{carModel}/{yearFrom}/{yearTo}/{priceFrom}/{priceTo}")
+//        Map<String,String> map = new HashMap<>();
+//        map.put("title", title);
+//        map.put("carBrand", carBrand);
+//        map.put("carModel", carModel);
+//        map.put("yearFrom", )
+//        //map.put("name", "Ram");
+//
+//        restTemplate.put(BASE_URL+ auto.getIdAuto().toString(), auto, map);
+
+//        restTemplate.put();
+
+
+        String url="http://192.168.2.14:8080/api/autos/" + title + "/" + carBrand + "/" + carModel + "/" +yearFrom +"/" +
+                yearTo + "/" +priceFrom + "/" +priceTo ;
+
+        ResponseEntity<List<Auto>> rateResponse =
+                restTemplate.exchange(url,
+                        HttpMethod.GET, null, new ParameterizedTypeReference<List<Auto>>() {
+                        });
+        List<Auto> rates = rateResponse.getBody();
+       // Toast.makeText(AutoRestClient.this, String.valueOf(rates.size()), Toast.LENGTH_LONG).show();
+       // Log.v("MODEL", String.valueOf(rates.size()));
+
+
+
+
+
 
 
 

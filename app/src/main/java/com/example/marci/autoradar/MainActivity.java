@@ -183,6 +183,8 @@ public class MainActivity extends AppCompatActivity
 //
 //
 //            startActivity((intent));
+            Intent intent = new Intent(this, FilterActivity.class);
+            startActivity(intent);
 
         } else if (id == R.id.settings) {
 
@@ -270,4 +272,6 @@ public class MainActivity extends AppCompatActivity
 
         }
     }
+
+
 }
