@@ -6,6 +6,10 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.DividerItemDecoration;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -25,6 +29,7 @@ import com.google.android.gms.ads.MobileAds;
 
 import java.util.List;
 
+import adapters.AutoListAdapaterRecycler;
 import adapters.AutoListAdapter;
 import entities.Auto;
 import entities.User;
@@ -42,18 +47,23 @@ public class MainActivity extends AppCompatActivity
     List<Auto> listaAut;
     FloatingActionButton fab;
 
+    //test
+    private RecyclerView recyclerView;
+    private AutoListAdapaterRecycler mAdapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        mAdView = findViewById(R.id.adView4);
+        mAdView = findViewById(R.id.adView3);
         AdRequest adRequest = new AdRequest.Builder().build();
 
         //AdRequest.Builder.addTestDevice("E9D3F269C53676DDA1836BDDC5B7D4B5");
 
         mAdView.loadAd(adRequest);
 
+        recyclerView = findViewById(R.id.recyclerView);
 
         mainUser = User.mUser;
         //Toast.makeText(MainActivity.this, String.valueOf(mainUser.getAutos().size()), Toast.LENGTH_LONG).show();
@@ -221,8 +231,17 @@ public class MainActivity extends AppCompatActivity
         @Override
         protected void onPostExecute(List<Auto> autos) {
             //listaAut = autos;
-            ListView listViewAuto = findViewById(R.id.listViewAutoContentMain);
-            listViewAuto.setAdapter(new AutoListAdapter(MainActivity.this, autos));
+//            ListView listViewAuto = findViewById(R.id.listViewAutoContentMain);
+//            listViewAuto.setAdapter(new AutoListAdapter(MainActivity.this, autos));
+
+            mAdapter = new AutoListAdapaterRecycler(autos, MainActivity.this);
+            RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
+            recyclerView.setLayoutManager(mLayoutManager);
+            recyclerView.setItemAnimator(new DefaultItemAnimator());
+            recyclerView.addItemDecoration(new DividerItemDecoration(MainActivity.this, LinearLayoutManager.VERTICAL));
+            recyclerView.setAdapter(mAdapter);
+
+
 
         }
     }
@@ -239,8 +258,15 @@ public class MainActivity extends AppCompatActivity
 
         @Override
         protected void onPostExecute(List<Auto> autos) {
-            ListView listViewAuto = findViewById(R.id.listViewAutoContentMain);
-            listViewAuto.setAdapter(new AutoListAdapter(MainActivity.this, autos));
+//            ListView listViewAuto = findViewById(R.id.listViewAutoContentMain);
+//            listViewAuto.setAdapter(new AutoListAdapter(MainActivity.this, autos));
+
+            mAdapter = new AutoListAdapaterRecycler(autos, MainActivity.this);
+            RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
+            recyclerView.setLayoutManager(mLayoutManager);
+            recyclerView.setItemAnimator(new DefaultItemAnimator());
+            recyclerView.addItemDecoration(new DividerItemDecoration(MainActivity.this, LinearLayoutManager.VERTICAL));
+            recyclerView.setAdapter(mAdapter);
 
         }
     }

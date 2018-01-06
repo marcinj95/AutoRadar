@@ -18,6 +18,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.example.marci.autoradar.AutoDetailActivity;
 import com.example.marci.autoradar.MainActivity;
 import com.example.marci.autoradar.R;
@@ -38,14 +39,15 @@ import entities.Auto;
 public class AutoListAdapter extends ArrayAdapter<Auto> {
 
     private Context context;
-   // private List<Auto> autos;
+    private int positionheh;
+    //private List<Auto> autos;
 
 
     public AutoListAdapter(Context context, List<Auto> autos)
     {
         super(context, R.layout.auto_list_layout, autos);
         this.context = context;
-       // this.autos = autos;
+        //this.autos = autos;
 
     }
 
@@ -53,105 +55,128 @@ public class AutoListAdapter extends ArrayAdapter<Auto> {
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
 
-        final Auto auto = getItem(position);
+        //final Auto auto = getItem(position);
 
-       // LayoutInflater layoutInflater = LayoutInflater.from(context);
-      //  View view = layoutInflater.inflate(R.layout.auto_list_layout, parent, false);
+        // LayoutInflater layoutInflater = LayoutInflater.from(context);
+        //  View view = layoutInflater.inflate(R.layout.auto_list_layout, parent, false);
+        Auto auto = getItem(position);
+        ViewHolder viewHolder= null;
+
 
         if (convertView == null) {
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.auto_list_layout, parent, false);
+
+
+            viewHolder = new ViewHolder();
+            // viewHolder.position = position;
+            viewHolder.imageView = convertView.findViewById(R.id.imageViewListLayout);
+            viewHolder.progress = convertView.findViewById(R.id.progressBar3);
+            viewHolder.textViewData = convertView.findViewById(R.id.textViewDataListLayout);
+            viewHolder.textViewDesc =  convertView.findViewById(R.id.textViewTitleListLayout);
+            convertView.setTag(viewHolder);
+
         }
-        //Auto auto = autos.get(position);
+        else {
+            // View is being recycled, retrieve the viewHolder object from tag
+            viewHolder = (ViewHolder) convertView.getTag();
+        }
 
 
 
-
-
-
-
-//        TextView textViewId = convertView.findViewById(R.id.textViewIdList);
-//        textViewId.setText(auto.getIdAuto().toString());
-//       // Toast.makeText(getContext(),auto.getIdAuto().toString(), Toast.LENGTH_SHORT);
-//        //Log.v("E:" + auto.getIdAuto().toString(), "DDDDDD");
-//
-//
-//        TextView textViewModel = convertView.findViewById(R.id.textViewModelLIst);
-//        textViewModel.setText(auto.getModel());
-//        //Log.v("E:" + auto.getCarBrand(), "WWWW");
-////
-//        TextView textViewCarBrand = convertView.findViewById(R.id.textViewCarBrandList);
-//        textViewCarBrand.setText(auto.getCarBrand());
-
-        TextView textViewDesc = convertView.findViewById(R.id.textViewTitleListLayout);
-        textViewDesc.setText(auto.getTitle());
-
-        TextView textViewCity = convertView.findViewById(R.id.textViewCityListLayout);
-
-//        if(auto.getUser()!=null)
-//        {
-//            textViewCity.setText(auto.getUser().getCity());
-//        }else {
-//            textViewCity.setText("Brak");
-//        }
-
+        viewHolder.textViewDesc.setText(auto.getTitle());
         String date = new SimpleDateFormat("dd-MM-yyyy").format(auto.getCreatedAt());
+        viewHolder.textViewData.setText(date);
+        viewHolder.imageView.setImageResource(0);
 
-        TextView textViewData = convertView.findViewById(R.id.textViewDataListLayout);
-        textViewData.setText(date);
+        Bitmap bitmap = BitmapFactory.decodeByteArray(auto.getImage(), 0, auto.getImage().length);
+        viewHolder.imageView.setImageBitmap(bitmap);
+        viewHolder.progress.setVisibility(ProgressBar.GONE);
+
+//        new DownloadImageTask(viewHolder.imageView,viewHolder.progress,
+//                auto.getIdAuto()).execute(auto);
 
 
-//        ImageView imageView = convertView.findViewById(R.id.imageViewListLayout);
-//        if(auto.getImage()!=null){
+//        Glide.with(context).load(auto.getImage()).into(viewHolder.imageView);
+//        viewHolder.progress.setVisibility(ProgressBar.GONE);
+
+
+
+
+
+        //new lol(auto).execute(viewHolder);
+
+
+//        String date = new SimpleDateFormat("dd-MM-yyyy").format(auto.getCreatedAt());
 //
-//           // imageView.measure(View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED), View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED));
 //
-//            Bitmap bitmap = BitmapFactory.decodeByteArray(auto.getImage(), 0, auto.getImage().length);
-//           // Bitmap bitmap1 = Bitmap.createScaledBitmap(bitmap,imageView.getMeasuredWidth(),imageView.getMeasuredHeight(),false );
+//        ConstraintLayout constraintLayout = convertView.findViewById(R.id.constraintLayoutListLayout);
+//        constraintLayout.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
 //
-//            imageView.setImageBitmap(bitmap);
+//                //auto.setImage(null);
+//                Intent intent = new Intent(context, AutoDetailActivity.class);
+//               // auto.setUser(null);
+//              //  intent.putExtra("AutoS", auto);
 //
 //
-//        }else {
-//            imageView.setImageResource(R.drawable.photo_camera);
-//        }
-
-
-
-
-
-        ImageView imageView = convertView.findViewById(R.id.imageViewListLayout);
-        imageView.setImageResource(0);
-
-//        ProgressBar progressBar = convertView.findViewById(R.id.progressBar3);
-//        progressBar.setVisibility(ProgressBar.VISIBLE);
-
-
-        new DownloadImageTask((ImageView) convertView.findViewById(R.id.imageViewListLayout),(ProgressBar)convertView.findViewById(R.id.progressBar3),
-                auto.getIdAuto()).execute(auto);
-
-
-
-
-
-        ConstraintLayout constraintLayout = convertView.findViewById(R.id.constraintLayoutListLayout);
-        constraintLayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                //auto.setImage(null);
-                Intent intent = new Intent(context, AutoDetailActivity.class);
-                auto.setUser(null);
-                intent.putExtra("AutoS", auto);
-
-
-                context.startActivity((intent));
-
-            }
-        });
+//                context.startActivity((intent));
+//
+//            }
+//        });
 
         return convertView;
 
     }
+
+
+
+
+
+
+    static class ViewHolder {
+        TextView textViewDesc;
+        TextView textViewData;
+        ImageView imageView;
+        ProgressBar progress;
+        // int position;
+    }
+
+//    private  class lol extends AsyncTask<ViewHolder, Void, Bitmap> {
+//        private ViewHolder v;
+//        private Auto auto;
+//
+//        public lol(Auto auto){
+//            this.auto = auto;
+//        }
+//
+//        @Override
+//        protected void onPreExecute() {
+//            super.onPreExecute();
+//            v.progress.setVisibility(ProgressBar.VISIBLE);
+//            v.imageView.setVisibility(View.GONE);
+//        }
+//
+//        @Override
+//        protected Bitmap doInBackground(ViewHolder... params) {
+//            v = params[0];
+//            Bitmap bitmap = BitmapFactory.decodeByteArray(auto.getImage(), 0, auto.getImage().length);
+//           return bitmap;
+//        }
+//
+//        @Override
+//        protected void onPostExecute(Bitmap result) {
+//            super.onPostExecute(result);
+//            if (v.position == positionheh) {
+//                // If this item hasn't been recycled already, hide the
+//                // progress and set and show the image
+//                v.progress.setVisibility(View.GONE);
+//                v.imageView.setVisibility(View.VISIBLE);
+//                v.imageView.setImageBitmap(result);
+//            }
+//        }
+//    }
+
 
     private class DownloadImageTask extends AsyncTask<Auto, Void, Bitmap> {
         ImageView bmImage;
@@ -187,7 +212,7 @@ public class AutoListAdapter extends ArrayAdapter<Auto> {
                 bmImage.setImageBitmap(result);
                 progressBar.setVisibility(View.GONE);
             } else {
-               // bmImage.setImageResource(R.drawable.photo_camera);
+                // bmImage.setImageResource(R.drawable.photo_camera);
                 bmImage.setImageResource(0);
                 progressBar.setVisibility(View.GONE);
             }
@@ -195,8 +220,6 @@ public class AutoListAdapter extends ArrayAdapter<Auto> {
         }
 
     }
-
-
 }
 
 
