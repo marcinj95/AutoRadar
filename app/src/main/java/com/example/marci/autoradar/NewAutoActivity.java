@@ -43,7 +43,7 @@ import models.AutoRestClient;
 
 public class NewAutoActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
-    private String carModel;
+    private String carModel = "Inny";
     private String carBrand;
 //    private String description;
 //    private  int productionYear;
@@ -83,6 +83,8 @@ public class NewAutoActivity extends AppCompatActivity implements AdapterView.On
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_auto);
 
+       // mUser = User.mUser;//(User) i.getSerializableExtra("UserS");
+
 
         if(MainActivity.ifUserAutos == false) {
            // Intent i = getIntent();
@@ -105,6 +107,8 @@ public class NewAutoActivity extends AppCompatActivity implements AdapterView.On
 
             spinnerCarModel = findViewById(R.id.spinnerModel);
             spinnerCarModel.setVisibility(View.GONE);
+            spinnerCarModel.setEnabled(false);
+            spinnerCarModel.setClickable(false);
             spinnerCarModel.setOnItemSelectedListener(this);
 // Create an ArrayAdapter using the string array and a default spinner layout
 
@@ -131,6 +135,9 @@ public class NewAutoActivity extends AppCompatActivity implements AdapterView.On
                         auto.setPrice(Integer.parseInt(cena.getText().toString()));
                         auto.setDescription(opis.getText().toString());
                         auto.setCarBrand(carBrand);
+
+                            auto.setModel(carModel);
+
                         auto.setModel(carModel);
                         auto.setAdres(adres.getText().toString());
                         auto.setUser(mUser);
@@ -177,6 +184,8 @@ public class NewAutoActivity extends AppCompatActivity implements AdapterView.On
 
             Intent i = getIntent();
             mAuto = (Auto) i.getSerializableExtra("AutoS");
+           // mUser = User.mUser;
+            //Log.v("HUJ", mUser.getName());
 
             Spinner spinnerCarBrand = findViewById(R.id.spinnerCarBrand);
             spinnerCarModel = findViewById(R.id.spinnerModel);
@@ -238,7 +247,8 @@ public class NewAutoActivity extends AppCompatActivity implements AdapterView.On
                         auto.setCarBrand(mAuto.getCarBrand());
                         auto.setModel(mAuto.getModel());
                         auto.setAdres(adres.getText().toString());
-                        auto.setUser(mUser);
+                       // auto.setUser(mUser);
+                      //  Log.v("HUJ", mUser.getName());
                         auto.setImage(image);
                         auto.setUser(mAuto.getUser());
 
@@ -328,21 +338,33 @@ public class NewAutoActivity extends AppCompatActivity implements AdapterView.On
     }
 
     @Override
-    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long l) {
         // An item was selected. You can retrieve the selected item using
         // parent.getItemAtPosition(pos)
 
         //Spinner spinner = (Spinner) adapterView;
         //adapterView.getItemAtPosition(i);
 
-        switch (adapterView.getId()){
+        switch (parent.getId()){
             case R.id.spinnerCarBrand:
 
-                carBrand = adapterView.getItemAtPosition(i).toString();
+                carBrand = parent.getItemAtPosition(position).toString();
 //                ifBrandChoosen = true;
 //                ktoreAuto = i;
-                getModel(i);
-                spinnerCarModel.setVisibility(View.VISIBLE);
+                //Toast.makeText(FilterActivity.this, "Position: " + position, Toast.LENGTH_SHORT).show();
+                getModel(position);
+                if(position!=0) {
+                    spinnerCarModel.setEnabled(true);
+                    spinnerCarModel.setVisibility(View.VISIBLE);
+                    spinnerCarModel.setClickable(true);
+                }else{
+                    spinnerCarModel.setEnabled(false);
+                    spinnerCarModel.setVisibility(View.GONE);
+                    spinnerCarModel.setClickable(false);
+                    carModel = "Inny";
+                }
+                //Toast.makeText(FilterActivity.this, carBrand + " "  + carModel, Toast.LENGTH_SHORT).show();
+
 
 
 
@@ -352,8 +374,12 @@ public class NewAutoActivity extends AppCompatActivity implements AdapterView.On
 
             case R.id.spinnerModel:
 
-                carModel= adapterView.getItemAtPosition(i).toString();
-                Toast.makeText(NewAutoActivity.this, carBrand + " "  + carModel, Toast.LENGTH_SHORT).show();
+                if(spinnerCarModel.isEnabled()){
+                    carModel= parent.getItemAtPosition(position).toString();
+                    // Toast.makeText(FilterActivity.this, carBrand + " "  + carModel, Toast.LENGTH_SHORT).show();
+                }
+
+
 
                 break;
         }
@@ -505,43 +531,39 @@ public class NewAutoActivity extends AppCompatActivity implements AdapterView.On
     public void getModel(int auto){
         List<String> list = new ArrayList<>();
 
-
-        Resources res = getResources();
-        TypedArray ta = res.obtainTypedArray(R.array.Marki);
-        int n = ta.length();
-        String[][] array = new String[n][];
-        for (int i = 0; i < n; ++i) {
-            int id = ta.getResourceId(i, 0);
-            if (id > 0) {
-                array[i] = res.getStringArray(id);
-               // list.add(array[n-1][i]);
-            } else {
-                // something wrong with the XML
+        if(auto!=0) {
+            Resources res = getResources();
+            TypedArray ta = res.obtainTypedArray(R.array.Marki);
+            int n = ta.length();
+            String[][] array = new String[n][];
+            for (int i = 0; i < n; ++i) {
+                int id = ta.getResourceId(i, 0);
+                if (id > 0) {
+                    array[i] = res.getStringArray(id);
+                    // list.add(array[n-1][i]);
+                } else {
+                    // something wrong with the XML
+                }
             }
+            ta.recycle(); // Important!
+
+            for (int x = 0; x < array[auto].length; x++) {
+                list.add(array[auto][x]);
+            }
+
+
+            ArrayAdapter<String> dataAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, list);
+
+            // Drop down layout style - list view with radio button
+            dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+            // attaching data adapter to spinner
+            spinnerCarModel.setAdapter(dataAdapter);
+
+            //Toast.makeText(this, String.valueOf(list.get(1)), Toast.LENGTH_SHORT).show();
+
+
         }
-        ta.recycle(); // Important!
-
-        for(int x=0; x<array[auto].length; x++){
-            list.add(array[auto][x]);
-        }
-
-
-        ArrayAdapter<String> dataAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, list);
-
-        // Drop down layout style - list view with radio button
-        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-
-        // attaching data adapter to spinner
-        spinnerCarModel.setAdapter(dataAdapter);
-
-        //Toast.makeText(this, String.valueOf(list.get(1)), Toast.LENGTH_SHORT).show();
-
-
-
-
-
-
-
 
 
 
