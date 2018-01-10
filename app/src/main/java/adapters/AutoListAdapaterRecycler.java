@@ -15,11 +15,14 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
+
 import com.example.marci.autoradar.AutoDetailActivity;
 import com.example.marci.autoradar.MainActivity;
 import com.example.marci.autoradar.R;
 
+
+
+import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.List;
 
@@ -96,12 +99,19 @@ public class AutoListAdapaterRecycler extends RecyclerView.Adapter<AutoListAdapa
         String date = new SimpleDateFormat("dd-MM-yyyy").format(auto.getCreatedAt());
         holder.textViewData.setText(date);
 
-       //Bitmap bitmap = BitmapFactory.decodeByteArray(auto.getImage(), 0, auto.getImage().length);
+      // Bitmap bitmap = BitmapFactory.decodeByteArray(auto.getImage(), 0, auto.getImage().length);
 //        holder.imageView.setImageBitmap(bitmap);
 
         //holder.progress.setVisibility(ProgressBar.GONE);
-        new DownloadImageTask(holder.imageView, holder.progress, auto.getIdAuto()).execute(auto);
-        //Glide.with(context).load(auto.getImage()).into(holder.imageView);
+        holder.imageView.setImageResource(0);
+       new DownloadImageTask(holder.imageView, holder.progress, auto.getIdAuto()).execute(auto);
+
+        //File file = new File(bitmap);
+
+        //Picasso.with(context).load("http://www.gstatic.com/webp/gallery/1.webp").into(holder.imageView);
+
+
+
 
 
 
@@ -148,7 +158,7 @@ public class AutoListAdapaterRecycler extends RecyclerView.Adapter<AutoListAdapa
         protected void onPreExecute() {
             super.onPreExecute();
             bmImage.setTag(this.teges);
-            bmImage.setImageResource(0);
+           // bmImage.setImageResource(0);
             progressBar.setVisibility(View.VISIBLE);
         }
 

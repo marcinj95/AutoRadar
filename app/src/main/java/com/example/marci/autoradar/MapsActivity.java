@@ -3,6 +3,8 @@ package com.example.marci.autoradar;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
@@ -313,19 +315,58 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             public void onInfoWindowClick(Marker marker) {
                 Auto auto =(Auto) marker.getTag();
 
-        if (auto != null) {
+//        if (auto != null) {
+//
+//            Intent intent = new Intent(MapsActivity.this, AutoDetailActivity.class);
+//            auto.setUser(null);
+//            intent.putExtra("AutoS", auto);
+//
+//
+//            startActivity((intent));
+//        }
 
-            Intent intent = new Intent(MapsActivity.this, AutoDetailActivity.class);
-            auto.setUser(null);
-            intent.putExtra("AutoS", auto);
-
-
-            startActivity((intent));
-        }
+                new newIntentWithPhoto().execute(auto);
 
             }
         });
 
+    }
+
+    private class newIntentWithPhoto extends AsyncTask<Auto, Void, Auto> {
+
+        @Override
+        protected Auto doInBackground(Auto... voids) {
+//            AutoRestClient autoRestClient = new AutoRestClient();
+//            // Auto auto = autoRestClient.find(12L);
+//            return autoRestClient.find(mAuto.getIdAuto());
+            Auto auto = voids[0];
+
+            AutoRestClient autoRestClient = new AutoRestClient();
+
+            auto.setImage(autoRestClient.getImageById(auto.getIdAuto()));
+
+           // Bitmap bitmap = BitmapFactory.decodeByteArray(auto.getImage(), 0, auto.getImage().length);
+
+            //return bitmap;
+
+            return auto;
+        }
+
+        @Override
+        protected void onPostExecute(Auto auto) {
+           // super.onPostExecute(aVoid);
+
+            if (auto != null) {
+
+                Intent intent = new Intent(MapsActivity.this, AutoDetailActivity.class);
+                auto.setUser(null);
+                intent.putExtra("AutoS", auto);
+
+
+                startActivity((intent));
+            }
+
+        }
     }
 
     @Override

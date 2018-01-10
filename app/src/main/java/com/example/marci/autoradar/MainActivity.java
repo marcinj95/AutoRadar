@@ -176,7 +176,7 @@ public class MainActivity extends AppCompatActivity
 
         if (id == R.id.new_offer) {
             Intent intent = new Intent(MainActivity.this, NewAutoActivity.class);
-            intent.putExtra("UserS",mainUser );
+            //intent.putExtra("UserS",mainUser );
             startActivity(intent);
         } else if (id == R.id.get_all) {
             Intent intent = new Intent(MainActivity.this, MapsActivity.class);

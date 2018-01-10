@@ -22,8 +22,8 @@ import entities.*;
 
 public class AutoRestClient {
 
-   private String BASE_URL="http://192.168.2.14:8080/api/autos/";
-  // private String BASE_URL="http://192.168.100.10:8080/api/autos/";
+   //private String BASE_URL="http://192.168.2.14:8080/api/autos/";
+   private String BASE_URL="http://192.168.43.42:8080/api/autos/";
     private RestTemplate restTemplate = new RestTemplate();
 
     public Auto find(Long id){
@@ -101,7 +101,7 @@ public class AutoRestClient {
 
     public String getCityAndDateUser(Long id){
 
-        String url="http://192.168.2.14:8080/api/autos/getCityAndDateUser/" + String.valueOf(id);
+        String url=BASE_URL + "getCityAndDateUser/" + String.valueOf(id);
 
         String s = restTemplate.getForObject(url, String.class);
 
@@ -114,7 +114,7 @@ public class AutoRestClient {
 
     public String getUserTel(Long id){
 
-        String url="http://192.168.2.14:8080/api/autos/getUserTel/" + String.valueOf(id);
+        String url=BASE_URL + "getUserTel/" + String.valueOf(id);
 
         String s = restTemplate.getForObject(url, String.class);
 
@@ -177,7 +177,7 @@ public class AutoRestClient {
  //BEZ USER I IMAGE
 
 
-        String url="http://192.168.2.14:8080/api/autos/" + title + "/" + carBrand + "/" + carModel + "/" +yearFrom +"/" +
+        String url=BASE_URL + title + "/" + carBrand + "/" + carModel + "/" +yearFrom +"/" +
                 yearTo + "/" +priceFrom + "/" +priceTo ;
 
         ResponseEntity<List<Auto>> rateResponse =
