@@ -44,6 +44,8 @@ public class AutoListAdapaterRecycler extends RecyclerView.Adapter<AutoListAdapa
     static class MyViewHolder extends RecyclerView.ViewHolder {
         TextView textViewDesc;
         TextView textViewData;
+        TextView textViewPrice;
+       // TextView textViewCity;
         ImageView imageView;
         ProgressBar progress;
         ConstraintLayout constraintLayout;
@@ -55,6 +57,8 @@ public class AutoListAdapaterRecycler extends RecyclerView.Adapter<AutoListAdapa
             progress = view.findViewById(R.id.progressBar3);
             textViewData = view.findViewById(R.id.textViewDataListLayout);
             textViewDesc = view.findViewById(R.id.textViewTitleListLayout);
+            textViewPrice = view.findViewById(R.id.textViewPriceListLayout);
+            //textViewCity = view.findViewById(R.id.textViewCityListLayout);
             constraintLayout = view.findViewById(R.id.constraintLayoutListLayout);
 
         }
@@ -95,16 +99,17 @@ public class AutoListAdapaterRecycler extends RecyclerView.Adapter<AutoListAdapa
 
 
         holder.textViewDesc.setText(auto.getTitle());
+        holder.textViewPrice.setText(String.valueOf(auto.getPrice()) + " zł");
 
-        String date = new SimpleDateFormat("dd-MM-yyyy").format(auto.getCreatedAt());
-        holder.textViewData.setText(date);
+        //String date = new SimpleDateFormat("dd-MM-yyyy").format(auto.getCreatedAt());
+       // holder.textViewData.setText(date);
 
       // Bitmap bitmap = BitmapFactory.decodeByteArray(auto.getImage(), 0, auto.getImage().length);
 //        holder.imageView.setImageBitmap(bitmap);
 
         //holder.progress.setVisibility(ProgressBar.GONE);
         holder.imageView.setImageResource(0);
-       new DownloadImageTask(holder.imageView, holder.progress, auto.getIdAuto()).execute(auto);
+       new DownloadImageTask(holder.textViewData, holder.imageView, holder.progress, auto.getIdAuto()).execute(auto);
 
         //File file = new File(bitmap);
 
@@ -147,11 +152,14 @@ public class AutoListAdapaterRecycler extends RecyclerView.Adapter<AutoListAdapa
         ImageView bmImage;
         Long teges;
         ProgressBar progressBar;
+        TextView data;
+        String s;
 
-        public DownloadImageTask(ImageView bmImage,ProgressBar progressBar,Long teges) {
+        public DownloadImageTask(TextView data, ImageView bmImage,ProgressBar progressBar,Long teges) {
             this.bmImage = bmImage;
             this.teges = teges;
             this.progressBar = progressBar;
+            this.data = data;
         }
 
         @Override
@@ -169,6 +177,8 @@ public class AutoListAdapaterRecycler extends RecyclerView.Adapter<AutoListAdapa
 
             auto.setImage(autoRestClient.getImageById(auto.getIdAuto()));
 
+            s=autoRestClient.getCityAndDateUser(auto.getIdAuto());
+
             Bitmap bitmap = BitmapFactory.decodeByteArray(auto.getImage(), 0, auto.getImage().length);
 
             return bitmap;
@@ -184,6 +194,7 @@ public class AutoListAdapaterRecycler extends RecyclerView.Adapter<AutoListAdapa
             if(lol != null && lol.equals(this.teges)){
                // Glide.with(context).load(result).into(bmImage);
                 bmImage.setImageBitmap(result);
+                data.setText(s);
                 progressBar.setVisibility(View.GONE);
             } else {
                 // bmImage.setImageResource(R.drawable.photo_camera);

@@ -24,8 +24,8 @@ import entities.User;
 
 public class UserRestClient {
 
-    //private String BASE_URL="http://192.168.2.14:8080/api/users/";
-    private String BASE_URL="http://192.168.43.42:8080/api/users/";
+    private String BASE_URL="http://192.168.2.14:8080/api/users/";
+    //private String BASE_URL="http://192.168.43.42:8080/api/users/";
     private RestTemplate restTemplate = new RestTemplate();
 
     public User find(Long id){

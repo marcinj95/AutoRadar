@@ -22,8 +22,8 @@ import entities.*;
 
 public class AutoRestClient {
 
-   //private String BASE_URL="http://192.168.2.14:8080/api/autos/";
-   private String BASE_URL="http://192.168.43.42:8080/api/autos/";
+   private String BASE_URL="http://192.168.2.14:8080/api/autos/";
+   //private String BASE_URL="http://192.168.43.42:8080/api/autos/";
     private RestTemplate restTemplate = new RestTemplate();
 
     public Auto find(Long id){
@@ -206,6 +206,12 @@ public class AutoRestClient {
         byte[] lol = restTemplate.getForObject(url, byte[].class);
 
       return lol;
+    }
+
+    public void delete(Auto auto){
+
+        restTemplate.delete(BASE_URL+String.valueOf(auto.getIdAuto()));
+
     }
 
 

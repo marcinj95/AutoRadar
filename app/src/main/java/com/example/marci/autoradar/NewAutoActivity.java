@@ -225,7 +225,14 @@ public class NewAutoActivity extends AppCompatActivity implements AdapterView.On
 
             }
 
-
+            Button buttonDelete = findViewById(R.id.buttonDelete);
+            buttonDelete.setVisibility(View.VISIBLE);
+            buttonDelete.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    new DeleteAutoAsync().execute(mAuto);
+                }
+            });
 
             Button button = findViewById(R.id.buttonNewAddNewAuto);
             button.setText("Aktualizuj!");
@@ -567,5 +574,47 @@ public class NewAutoActivity extends AppCompatActivity implements AdapterView.On
 
 
 
+    }
+
+
+    private class DeleteAutoAsync extends  AsyncTask<Auto, Integer, Void>{
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            progressBar.setVisibility(View.VISIBLE);
+            mainScrollView.fullScroll(ScrollView.FOCUS_UP);
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+
+            progressBar.setVisibility(View.GONE);
+            Toast.makeText(NewAutoActivity.this, "Usunięto !", Toast.LENGTH_LONG).show();
+            finish();
+
+        }
+
+        @Override
+        protected void onProgressUpdate(Integer... values) {
+            progressBar.setProgress(values[0]);
+        }
+
+        @Override
+        protected Void doInBackground(Auto... autos) {
+
+            // Auto auto = autos[0];
+
+            AutoRestClient autoRestClient = new AutoRestClient();
+            if(autos[0]!=null ){
+                autoRestClient.delete(autos[0]);
+            }else {
+                Toast.makeText(NewAutoActivity.this, "Coś poszło nie tak!", Toast.LENGTH_SHORT).show();
+            }
+
+
+
+            return null;
+        }
     }
 }
